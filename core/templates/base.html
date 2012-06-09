@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{% block title %}{% endblock %}</title>
+
+	<!-- Stylesheets -->
+	{% block css %}
+		<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/master.css">
+	{% endblock %}
+
+	<!-- Scripts -->
+	{% block scripts %}
+		<script type="text/javascript" src="{{STATIC_URL}}js/include/jquery-1.7.2.min.js"></script>
+	{% endblock %}
+</head>
+<body>
+
+<div id="main-container">
+	<div id="header">
+		<img id="course-icon" src="{{STATIC_URL}}img/cap-inverted.png" alt="Course Icon">
+		<span id="course-name">CSC420 iOS Application Development</span>
+	</div>
+
+	<div id="content-container">
+		{% block content %}
+		{% endblock %}
+	</div>
+</div>
+
+</body>
+</html>

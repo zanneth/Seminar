@@ -4,7 +4,7 @@ from seminar import settings
 
 admin.autodiscover()
 urlpatterns = patterns('',
-	url(r'^$', 'core.views.home', name='home'),
+	url(r'^$', include('core.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT})
