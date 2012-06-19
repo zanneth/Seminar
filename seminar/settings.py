@@ -134,7 +134,9 @@ INSTALLED_APPS = (
     'discussion',
     'grades',
     'materials',
-    'news'
+    'news',
+
+    'south'
 
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
