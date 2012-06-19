@@ -62,6 +62,15 @@ a > img {
 }
 
 
+/* Common */
+
+div.content-container {
+	margin: 0 auto;
+	padding: 20px 0;
+	width: 900px;
+}
+
+
 /* Main */
 
 div#main-container {
@@ -73,12 +82,12 @@ span#servertime-epoch {
 }
 
 div#servertime {
-	width: 300px;
-	text-align: center;
+	border-bottom: 1px solid #ccc;
+	font-size: 10pt;
 	margin: 0 auto;
 	padding: 20px 0 5px 0;
-	border-bottom: 1px solid gray;
-	font-size: 10pt;
+	text-align: center;
+	width: 300px;
 }
 
 
