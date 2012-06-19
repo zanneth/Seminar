@@ -3,6 +3,8 @@
 <head>
 	<title>{% block title %}{% endblock %}</title>
 
+	{% load active_tag %}
+
 	<!-- Stylesheets -->
 	{% block css %}
 		<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/master.css">
@@ -11,6 +13,8 @@
 	<!-- Scripts -->
 	{% block scripts %}
 		<script type="text/javascript" src="{{STATIC_URL}}js/include/jquery-1.7.2.min.js"></script>
+		<script type="text/javascript" src="{{STATIC_URL}}js/include/jquery.dateFormat-1.0.js"></script>
+		<script type="text/javascript" src="{{STATIC_URL}}js/base.js"></script>
 	{% endblock %}
 </head>
 <body>
@@ -20,15 +24,36 @@
 		<img id="course-icon" src="{{STATIC_URL}}img/cap-inverted.png" alt="Course Icon">
 		<span id="course-name">CSC420 iOS Application Development</span>
 		<div id="tabs">
-			<span class="tab active"><a href="#">Home</a></span>
-			<span class="tab"><a href="#">Lorem</a></span>
-			<span class="tab"><a href="#">Ipsum</a></span>
-			<span class="tab"><a href="#">Sit</a></span>
-			<span class="tab"><a href="#">Dolor</a></span>
+			{% url home as home_url %}
+			<span class="tab {% active request home_url %}">
+				<a href="{{ home_url }}">Home</a>
+			</span>
+
+			{% url news as news_url %}
+			<span class="tab {% active request news_url %}">
+				<a href="{{ news_url }}">News</a>
+			</span>
+
+			{% url materials as materials_url %}
+			<span class="tab {% active request materials_url %}">
+				<a href="{{ materials_url }}">Materials</a>
+			</span>
+
+			{% url discussion as discussion_url %}
+			<span class="tab {% active request discussion_url %}">
+				<a href="{{ discussion_url }}">Discussion</a>
+			</span>
+
+			{% url grades as grades_url %}
+			<span class="tab {% active request grades_url %}">
+				<a href="{{ grades_url }}">Grades</a>
+			</span>
 		</div>
 	</div>
 
 	<div id="content-container">
+		<span id="servertime-epoch">{% now "U" %}</span>
+		<div id="servertime"></div>
 		{% block content %}
 		{% endblock %}
 	</div>

@@ -68,6 +68,19 @@ div#main-container {
 	height: 100%;
 }
 
+span#servertime-epoch {
+	display: none;
+}
+
+div#servertime {
+	width: 300px;
+	text-align: center;
+	margin: 0 auto;
+	padding: 20px 0 5px 0;
+	border-bottom: 1px solid gray;
+	font-size: 10pt;
+}
+
 
 /* Header */
 
