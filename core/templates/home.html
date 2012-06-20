@@ -1,5 +1,46 @@
 {% extends "base.html" %}
 
-{% block content %}
+{% block css %}
+{{ block.super }}
+<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/home.css">
+{% endblock %}
 
+{% block content %}
+<div class="content-container">
+	<div id="left-container">
+		<div id="description-container">
+			{% if selected_course.description_html %}
+				{{ selected_course.description_html|safe }}
+			{% else %}
+				<h1>Welcome to {{ selected_course.name }}</h1>
+				<!-- TODO -->
+				<ul id="course-stats">
+					<li>There are currently 9 active assignments.</li>
+					<li>There are 9 unread posts in the discussion boards.</li>
+					<li>This course currently has 80 students enrolled.</li>
+				</ul>
+			{% endif %}
+		</div>
+	</div>
+	<div id="right-container">
+		<div id="news-container">
+			<h3>Recent News</h3>
+			<ul id="recent-news">
+				{% if recent_news.count == 0 %}
+					<div id="no-recent-news">No Recent News</div>
+				{% endif %}
+
+				{% for post in recent_news %}
+					<li>
+						<h1>{{ post.subject }}</h1>
+						<p>
+							{{ post.body_html|truncatewords:50|safe }}
+							<a class="read-more" href="{% url news %}">Read More</a>
+						</p>
+					</li>
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+</div>
 {% endblock %}

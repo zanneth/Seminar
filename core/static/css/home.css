@@ -1,0 +1,63 @@
+div#left-container {
+	float: left;
+	width: 60%;
+}
+
+div#right-container {
+	float: right;
+	width: 40%;
+}
+
+div#description-container, div#news-container {
+	padding: 1em;
+}
+
+div#description-container h1 {
+	font-size: 18pt;
+}
+
+div#description-container h2 {
+	font-size: 16pt;
+}
+
+div#description-container p {
+	padding: 1em 0;
+	line-height: 1.3em;
+}
+
+ul#course-stats {
+	padding: 20px;
+}
+
+ul#course-stats li {
+	line-height: 1.5em;
+}
+
+ul#recent-news {
+	list-style-type: none;
+	padding: 0 10px;
+}
+
+ul#recent-news > li + li {
+	margin-top: 20px;
+}
+
+ul#recent-news h1 {
+	font-size: 12pt;
+	font-weight: bold;
+}
+
+ul#recent-news p {
+	font-size: 10pt;
+}
+
+ul#recent-news img {
+	display: none;
+}
+
+div#no-recent-news {
+	font-size: 12pt;
+	color: gray;
+	font-style: italic;
+	text-align: center;
+}

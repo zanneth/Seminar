@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import redirect, render_to_response
 from django.template import RequestContext
+import news.models
 from pprint import pprint
 
 def login(request):
@@ -51,5 +52,8 @@ def clear_course(request):
 
 @selected_course_required
 def home(request):
+	selected_course = models.Course.get_selected_course(request)
+	recent_news = selected_course.news_items.order_by("-created")
 	return render_to_response("home.html",
+							{ "recent_news" : recent_news },
 							context_instance=RequestContext(request))
