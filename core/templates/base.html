@@ -21,7 +21,11 @@
 
 <div id="main-container">
 	<div id="header">
-		<img id="course-icon" src="{{STATIC_URL}}img/cap_inverted.png" alt="Course Icon">
+		{% if selected_course.icon %}
+			<img id="course-icon" src="{{ selected_course.icon }}" alt="Course Icon">
+		{% else %}
+			<img id="course-icon" src="{{STATIC_URL}}img/cap_inverted.png" alt="Course Icon">
+		{% endif %}
 		<span id="course-name">{{ selected_course }}</span>
 
 		<div id="user-controls">
@@ -49,12 +53,12 @@
 				<a href="{{ home_url }}">Home</a>
 			</span>
 
-			{% if request.user.is_authenticated %}
-				{% url news as news_url %}
-				<span class="tab {% active request news_url %}">
-					<a href="{{ news_url }}">News</a>
-				</span>
+			{% url news as news_url %}
+			<span class="tab {% active request news_url %}">
+				<a href="{{ news_url }}">News</a>
+			</span>
 
+			{% if request.user.is_authenticated %}
 				{% url materials as materials_url %}
 				<span class="tab {% active request materials_url %}">
 					<a href="{{ materials_url }}">Materials</a>

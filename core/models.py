@@ -1,6 +1,7 @@
 from django.db import models
 from django.db.models.signals import post_save
 from django.contrib.auth.models import User
+import markdown
 
 class Semester(models.Model):
 	title       = models.CharField(max_length=1024)
@@ -54,6 +55,8 @@ class Course(models.Model):
 	name		= models.CharField(max_length=1024)
 	section		= models.CharField(max_length=10, verbose_name="section number", null=True, blank=True)
 	icon		= models.FileField(upload_to=ICONS_DIRECTORY, null=True, blank=True)
+	description = models.TextField(null=True, blank=True)
+	description_html = models.TextField(editable=False, null=True, blank=True)
 
 #	news_items	= [foreign key `course` in news.NewsItem]
 
@@ -62,6 +65,10 @@ class Course(models.Model):
 			return "{0}{1} - {2}".format(self.department, self.number, self.name)
 		else:
 			return self.name
+
+	def save(self, force_insert=False, force_update=False):
+		self.description_html = markdown.markdown(self.description)
+		super(Course, self).save(force_insert, force_update)
 
 	@staticmethod
 	def get_selected_course(request):
