@@ -21,39 +21,63 @@
 
 <div id="main-container">
 	<div id="header">
-		<img id="course-icon" src="{{STATIC_URL}}img/cap-inverted.png" alt="Course Icon">
-		<span id="course-name">CSC420 iOS Application Development</span>
+		<img id="course-icon" src="{{STATIC_URL}}img/cap_inverted.png" alt="Course Icon">
+		<span id="course-name">{{ selected_course }}</span>
+
+		<div id="user-controls">
+			{% if request.user.is_authenticated %}
+				<span id="welcome">Welcome, {{ request.user.first_name }}</span><br />
+			{% endif %}
+
+			<a href="#">About &#124;</a>
+
+			{% if other_courses_available %}
+				<a href="{% url select_course %}">Switch Course &#124;</a>
+			{% endif %}
+
+			{% if not request.user.is_authenticated %}
+				<a href="{% url login %}" style="font-weight: bold">Login</a>
+			{% else %}
+				<a href="#">Settings &#124;</a>
+				<a href="{% url logout %}" style="font-weight: bold">Logout</a>
+			{% endif %}
+		</div>
+
 		<div id="tabs">
 			{% url home as home_url %}
 			<span class="tab {% active request home_url %}">
 				<a href="{{ home_url }}">Home</a>
 			</span>
 
-			{% url news as news_url %}
-			<span class="tab {% active request news_url %}">
-				<a href="{{ news_url }}">News</a>
-			</span>
+			{% if request.user.is_authenticated %}
+				{% url news as news_url %}
+				<span class="tab {% active request news_url %}">
+					<a href="{{ news_url }}">News</a>
+				</span>
 
-			{% url materials as materials_url %}
-			<span class="tab {% active request materials_url %}">
-				<a href="{{ materials_url }}">Materials</a>
-			</span>
+				{% url materials as materials_url %}
+				<span class="tab {% active request materials_url %}">
+					<a href="{{ materials_url }}">Materials</a>
+				</span>
 
-			{% url discussion as discussion_url %}
-			<span class="tab {% active request discussion_url %}">
-				<a href="{{ discussion_url }}">Discussion</a>
-			</span>
+				{% url discussion as discussion_url %}
+				<span class="tab {% active request discussion_url %}">
+					<a href="{{ discussion_url }}">Discussion</a>
+				</span>
 
-			{% url grades as grades_url %}
-			<span class="tab {% active request grades_url %}">
-				<a href="{{ grades_url }}">Grades</a>
-			</span>
+				{% url grades as grades_url %}
+				<span class="tab {% active request grades_url %}">
+					<a href="{{ grades_url }}">Grades</a>
+				</span>
+			{% endif %}
 		</div>
 	</div>
 
 	<div id="content-container">
 		<span id="servertime-epoch">{% now "U" %}</span>
-		<div id="servertime"></div>
+		<div id="servertime" 
+			{% if not request.user.is_authenticated %} style="display:none" {% endif %}
+		></div>
 		{% block content %}
 		{% endblock %}
 	</div>

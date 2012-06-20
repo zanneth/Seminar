@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Login</title>
+	<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/login.css">
+</head>
+
+<body>
+
+<div id="login-container">
+	<div id="login-header">User Login</div>
+	<div id="login-form-container">
+		<div id="login-form">
+			{% if error %}
+				<div class="error">{{ error.1 }}</div>
+			{% endif %}
+			<form method="POST" enctype="multipart/form-data">
+				{% csrf_token %}
+
+				<div class="login-field">
+					<input type="text" name="username" placeholder="Username">
+				</div>
+
+				<div class="login-field">
+					<input type="password" name="password" placeholder="Password">
+				</div>
+
+				<div class="login-field">
+					<input type="submit" value="Login">
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+</body>
+</html>

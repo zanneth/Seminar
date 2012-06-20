@@ -1,3 +1,4 @@
+from django.core.urlresolvers import reverse_lazy
 import os.path
 
 DEBUG = True
@@ -98,7 +99,9 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.static",
     "django.core.context_processors.tz",
     "django.contrib.messages.context_processors.messages",
-    "django.core.context_processors.request"
+    "django.core.context_processors.request",
+
+    "core.context_processors.courses"
 )
 
 MIDDLEWARE_CLASSES = (
@@ -143,6 +146,8 @@ INSTALLED_APPS = (
 )
 
 AUTH_PROFILE_MODULE = "core.UserProfile"
+
+LOGIN_URL = reverse_lazy("login")
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

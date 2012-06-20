@@ -43,6 +43,7 @@ post_save.connect(create_user_profile, sender=User)
 
 class Course(models.Model):
 	ICONS_DIRECTORY = "course_icons"
+	SESSION_KEY = "selected_course_id"
 
 	semester	= models.ForeignKey(Semester, related_name="courses", 
 									on_delete=models.SET_NULL, null=True, blank=True)
@@ -61,6 +62,31 @@ class Course(models.Model):
 			return "{0}{1} - {2}".format(self.department, self.number, self.name)
 		else:
 			return self.name
+
+	@staticmethod
+	def get_selected_course(request):
+		course_id = request.session.get(Course.SESSION_KEY)
+
+		try:
+			course = Course.objects.get(pk=course_id)
+		except Course.DoesNotExist:
+			if (request.session.has_key(Course.SESSION_KEY)):
+				del request.session[Course.SESSION_KEY]
+			
+			if (Course.objects.count() == 1):
+				course = Course.objects.all()[0]
+			else:
+				course = None
+
+		return course
+
+	@staticmethod
+	def set_selected_course(request, course_id):
+		request.session[Course.SESSION_KEY] = course_id
+
+	@staticmethod
+	def clear_selected_course(request):
+		del request.session[Course.SESSION_KEY]
 
 
 class Membership(models.Model):

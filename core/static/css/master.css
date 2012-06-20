@@ -109,6 +109,24 @@ div#header > span#course-name {
 	margin-left: 1em;
 }
 
+div#header > div#user-controls {
+	float: right;
+	font-size: 10pt;
+	height: 40px;
+	margin-top: 10px;
+	line-height: 14pt;
+	text-align: right;
+}
+
+div#header > div#user-controls > span#welcome {
+	font-weight: bold;
+}
+
+div#header > div#user-controls a {
+	color: #fff;
+	text-decoration: none;
+}
+
 
 /* Tabs */
 
