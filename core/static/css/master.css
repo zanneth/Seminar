@@ -20,36 +20,6 @@ body {
 /* Custom Fonts */
 
 @font-face {
-	font-family: Levenim;
-	src: url("/static/ttf/lvnm.ttf");
-}
-
-@font-face {
-	font-family: Levenim-Bold;
-	src: url("/static/ttf/lvnmbd.ttf");
-}
-
-@font-face {
-	font-family: Bebas;
-	src: url("/static/ttf/bebas.ttf");
-}
-
-@font-face {
-	font-family: Code;
-	src: url("/static/ttf/CODE Bold.otf");
-}
-
-@font-face {
-	font-family: Coolvetica;
-	src: url("/static/ttf/coolvetica.ttf");
-}
-
-@font-face {
-	font-family: Revolution;
-	src: url("/static/ttf/REVOLUTION.ttf");
-}
-
-@font-face {
 	font-family: Harabara;
 	src: url("/static/ttf/Harabara.ttf");
 }
