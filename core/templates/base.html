@@ -64,6 +64,11 @@
 					<a href="{{ materials_url }}">Materials</a>
 				</span>
 
+				{% url assignments as assignments_url %}
+				<span class="tab {% active request assignments_url %}">
+					<a href="{{ assignments_url }}">Assignments</a>
+				</span>
+
 				{% url discussion as discussion_url %}
 				<span class="tab {% active request discussion_url %}">
 					<a href="{{ discussion_url }}">Discussion</a>

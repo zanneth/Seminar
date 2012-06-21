@@ -24,6 +24,7 @@ class UserProfile(models.Model):
 	biography	= models.TextField(null=True, blank=True)
 #	courses		= [foreign key `members` in Course]
 	default_course = models.ForeignKey("Course", null=True, blank=True)
+#	submissions = [foreign key `submitter` in assignments.Submission]
 
 	def __unicode__(self):
 		if (self.user.first_name and self.user.last_name):
@@ -59,6 +60,7 @@ class Course(models.Model):
 	description_html = models.TextField(editable=False, null=True, blank=True)
 
 #	news_items	= [foreign key `course` in news.NewsItem]
+#	assignments	= [foreign key `course` in assignments.Assignment]
 
 	def __unicode__(self):
 		if (self.department and self.number):
