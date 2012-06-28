@@ -1,7 +1,31 @@
 {% extends "base.html" %}
 
 {% block title %}Assignments{% endblock %}
+{% block css %}
+{{ block.super }}
+<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/assignments.css">
+{% endblock %}
+
+{% block scripts %}
+{{ block.super }}
+<script type="text/javascript" src="{{STATIC_URL}}js/assignments.js"></script>
+{% endblock %}
 
 {% block content %}
-Assignments
+
+<div class="content-container">
+	<div id="assignments-container">
+		<div id="assignments-left-panel">
+			Left
+		</div>
+		<div id="assignments-right-panel">
+			<div class="assignment-calendar">
+				{{ calendar_html|safe }}
+			</div>
+		</div>
+
+		<br style="clear:both" />
+	</div>
+</div>
+
 {% endblock %}

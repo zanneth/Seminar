@@ -1,0 +1,47 @@
+div#assignments-left-panel,
+div#assignments-right-panel {
+	min-height: 600px;
+}
+
+div#assignments-left-panel {
+	width: 60%;
+	float: left;
+}
+
+div#assignments-right-panel {
+	width: 40%;
+	float: right;
+}
+
+div.assignment-calendar > table {
+	border: 1px solid #333;
+	border-collapse: collapse;
+	table-layout: fixed;
+	width: 100%;
+}
+
+div.assignment-calendar > table td {
+	border: 1px solid #333;
+	font-size: 10pt;
+	padding: 5px;
+	vertical-align: top;
+}
+
+div.assignment-calendar > table td:hover:not(.noday) {
+	background-color: #eee;
+	cursor: pointer;
+}
+
+div.assignment-calendar > table th.month {
+	font-family: "Palatino", serif;
+	font-size: 14pt;
+	font-weight: normal;
+	padding: 5px;
+}
+
+div.assignment-calendar > table
+th.mon, th.tue, th.wed, th.thu, th.fri, th.sat, th.sun {
+	font-size: 10pt;
+	font-weight: normal;
+	padding: 5px;
+}

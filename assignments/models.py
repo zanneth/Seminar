@@ -13,6 +13,12 @@ class AssignmentGroup(models.Model):
 
 
 class Assignment(models.Model):
+	PRIORITIES = (
+		(0, "Low"),
+		(1, "Normal"),
+		(2, "High")
+	)
+
 	course		= models.ForeignKey(core.models.Course, related_name="assignments")
 	title		= models.CharField(max_length=1024)
 	description = models.TextField(null=True, blank=True)
@@ -22,6 +28,7 @@ class Assignment(models.Model):
 	due			= models.DateTimeField(null=True, blank=True)
 	max_points	= models.FloatField()
 	allows_submissions = models.BooleanField(default=True)
+	priority	= models.IntegerField(choices=PRIORITIES, default=1)
 
 #	submissions = [foreign key `assignment` in Submission]
 #	assets		= [foreign key `assignment` in Asset]
