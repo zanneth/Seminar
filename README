@@ -4,4 +4,4 @@ Seminar
 Seminar is an open-source web application that is designed to run course
 websites.
 
-This project requires the 'markdown' and 'south' modules.
+This project requires the `bs4` (beautiful soup), 'markdown', and 'south' modules.

@@ -1,7 +1,11 @@
+from bs4 import BeautifulSoup
+from datetime import date
 from django.db import models
 from django.db.models.signals import post_save
 from django.contrib.auth.models import User
+import calendar
 import markdown
+import re
 
 class Semester(models.Model):
 	title       = models.CharField(max_length=1024)
@@ -71,6 +75,39 @@ class Course(models.Model):
 	def save(self, force_insert=False, force_update=False):
 		self.description_html = markdown.markdown(self.description)
 		super(Course, self).save(force_insert, force_update)
+
+	def assignment_calendar_html(self, date=date.today()):
+		"""
+		Returns an assignment calendar html string for the course according to 
+		the specified month and year.
+		"""
+		assgn_cal_item_class = "assignment-calendar-item"
+
+		try:
+			cal = calendar.HTMLCalendar()
+			cal_html = cal.formatmonth(date.year, date.month)
+
+			# We need to modify the DOM to add the assignment calendar items
+			soup = BeautifulSoup(cal_html)
+			day_cells = soup.find_all("td", {"class" : re.compile(r"mon|tue|wed|thu|fri|sat|sun")})
+			assignments = self.assignments.filter(due__year=date.year, due__month=date.month)
+			for assignment in assignments:
+				day_due = int(assignment.due.day)
+				if (day_due < len(day_cells)):
+					cell = day_cells[day_due - 1]
+					items_element = cell.find("div", { "class" : assgn_cal_item_class })
+					if (not items_element):
+						items_element = soup.new_tag("div", **{ "class" : assgn_cal_item_class })
+						cell.append(items_element)
+
+					priority = assignment.priority_string()
+					tag = soup.new_tag("span", **{ "class" : priority })
+					tag.string = "&#8226;"
+					items_element.append(tag)
+
+			return str(soup)
+		except (AttributeError, TypeError):
+			raise AssertionError("Input date should be a `date` object.")
 
 	@staticmethod
 	def get_selected_course(request):

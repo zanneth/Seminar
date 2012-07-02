@@ -45,3 +45,19 @@ th.mon, th.tue, th.wed, th.thu, th.fri, th.sat, th.sun {
 	font-weight: normal;
 	padding: 5px;
 }
+
+div.assignment-calendar div.assignment-calendar-item > span {
+	font-size: 15pt;
+}
+
+div.assignment-calendar div.assignment-calendar-item > span.low {
+	color: #00f;
+}
+
+div.assignment-calendar div.assignment-calendar-item > span.normal {
+	color: #000;
+}
+
+div.assignment-calendar div.assignment-calendar-item > span.high {
+	color: #f00;
+}

@@ -40,6 +40,9 @@ class Assignment(models.Model):
 		self.description_html = markdown.markdown(self.description)
 		super(Assignment, self).save(force_insert, force_update)
 
+	def priority_string(self):
+		return self.PRIORITIES[self.priority][1].lower()
+
 
 class Asset(models.Model):
 	UPLOADS_DIRECTORY = "assignment_assets"
