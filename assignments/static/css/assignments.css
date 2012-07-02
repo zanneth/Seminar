@@ -11,6 +11,26 @@ div#assignments-left-panel {
 div#assignments-right-panel {
 	width: 40%;
 	float: right;
+	position: relative;
+}
+
+div.assignment-calendar-controls {
+	text-align: center;
+	padding: 10px;
+}
+
+div.assignment-calendar-controls > div {
+	border: 1px solid #333;
+	display: inline-block;
+	height: 20px;
+	line-height: 20px;
+	text-align: center;
+	width: 100px;
+}
+
+div.assignment-calendar-controls > div:hover {
+	background-color: #eee;
+	cursor: pointer;
 }
 
 div.assignment-calendar > table {
@@ -47,7 +67,7 @@ th.mon, th.tue, th.wed, th.thu, th.fri, th.sat, th.sun {
 }
 
 div.assignment-calendar div.assignment-calendar-item > span {
-	font-size: 15pt;
+	font-size: 18pt;
 }
 
 div.assignment-calendar div.assignment-calendar-item > span.low {

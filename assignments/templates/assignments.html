@@ -19,6 +19,14 @@
 			Left
 		</div>
 		<div id="assignments-right-panel">
+			<div class="assignment-calendar-controls unselectable">
+				<div class="calendar-left icon-caret-left"></div>
+				<div class="calendar-right icon-caret-right"></div>
+			</div>
+
+			<span class="servertime-month">{{ current_month }}</span>
+			<span class="servertime-year">{{ current_year }}</span>
+
 			<div class="assignment-calendar">
 				{{ calendar_html|safe }}
 			</div>

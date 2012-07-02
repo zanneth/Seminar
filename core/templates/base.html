@@ -8,6 +8,7 @@
 	<!-- Stylesheets -->
 	{% block css %}
 		<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/master.css">
+		<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/font-awesome.css">
 	{% endblock %}
 
 	<!-- Scripts -->
@@ -83,7 +84,7 @@
 	</div>
 
 	<div id="content-container">
-		<span id="servertime-epoch">{% now "U" %}</span>
+		<span class="servertime-epoch">{% now "U" %}</span>
 		<div id="servertime" 
 			{% if not request.user.is_authenticated %} style="display:none" {% endif %}
 		></div>

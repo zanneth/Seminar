@@ -15,7 +15,7 @@ function serverTimeUpdateCallback()
 
 $(document).ready(function() {
 	// Setup servertime view
-	currentTime = parseInt($("#servertime-epoch").text());
+	currentTime = parseInt($(".servertime-epoch").text());
 	updateServerTimeView();
 	setInterval(serverTimeUpdateCallback, 1000);
 });
