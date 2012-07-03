@@ -8,6 +8,64 @@ div#assignments-left-panel {
 	float: left;
 }
 
+
+/** Assignments List **/
+
+div#assignments-list-container {
+	padding-right: 10px;
+}
+
+div#assignments-list-container > h1 {
+	font-size: 14pt;
+	margin-bottom: 15px;
+}
+
+div#assignments-list-container > h2 {
+	color: #333;
+	font-size: 12pt;
+	font-weight: normal;
+	font-style: italic;
+}
+
+ol#assignments-list {
+	list-style-type: none;
+}
+
+ol#assignments-list > li {
+	padding: 10px;
+	border: 1px solid #aaa;
+}
+
+ol#assignments-list > li + li {
+	margin-top: 20px;
+}
+
+div.assignment-title {
+	display: block;
+	font-weight: bold;
+	margin-bottom: 5px;
+}
+
+div.assignment-title > a {
+	color: #000;
+	text-decoration: none;
+}
+
+div.assignment-title > a:hover {
+	text-decoration: underline;
+}
+
+div.assignment-due {
+	font-size: 11pt;
+}
+
+span.icon-exclamation-sign {
+	color: #d00;
+}
+
+
+/** Assignments Calendar **/
+
 div#assignments-right-panel {
 	width: 40%;
 	float: right;
@@ -47,9 +105,8 @@ div.assignment-calendar > table td {
 	vertical-align: top;
 }
 
-div.assignment-calendar > table td:hover:not(.noday) {
+div.assignment-calendar > table td#today {
 	background-color: #eee;
-	cursor: pointer;
 }
 
 div.assignment-calendar > table th.month {

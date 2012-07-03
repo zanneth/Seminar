@@ -16,7 +16,35 @@
 <div class="content-container">
 	<div id="assignments-container">
 		<div id="assignments-left-panel">
-			Left
+			<div id="assignments-list-container">
+				<h1>Upcoming Assignments</h1>
+				{% if assignments %}
+					<ol id="assignments-list">
+						{% for assignment in assignments %}
+							{% if assignment.visible %}
+								<li>
+									<div class="assignment-title">
+										{% if assignment.priority == 2 %}
+											<span class="icon-exclamation-sign"></span>
+										{% endif %}
+										<a href="#">
+											{{ assignment.title }}
+											{% if assignment.assets.all %}
+												<span class="icon-file"></span>
+											{% endif %}
+										</a>
+									</div>
+									<div class="assignment-due">
+										Due <strong>{{ assignment.due }}</strong>
+									</div>
+								</li>
+							{% endif %}
+						{% endfor %}
+					</ol>
+				{% else %}
+					<h2>No assignments have been added yet.</h2>
+				{% endif %}
+			</div>
 		</div>
 		<div id="assignments-right-panel">
 			<div class="assignment-calendar-controls unselectable">

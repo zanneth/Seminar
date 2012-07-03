@@ -1,3 +1,4 @@
+from datetime import datetime, timedelta
 from django.db import models
 import core.models
 import markdown
@@ -19,16 +20,21 @@ class Assignment(models.Model):
 		(2, "High")
 	)
 
+	today = datetime.today()
+	tomorrow = datetime(today.year, today.month, today.day, 23, 59)
+	tomorrow += timedelta(days=1)
+
 	course		= models.ForeignKey(core.models.Course, related_name="assignments")
 	title		= models.CharField(max_length=1024)
 	description = models.TextField(null=True, blank=True)
 	description_html = models.TextField(editable=False)
 	group		= models.ForeignKey(AssignmentGroup, null=True, blank=True, related_name="assignments")
 	created		= models.DateTimeField(auto_now_add=True)
-	due			= models.DateTimeField(null=True, blank=True)
+	due			= models.DateTimeField(null=True, blank=True, default=tomorrow)
 	max_points	= models.FloatField()
 	allows_submissions = models.BooleanField(default=True)
 	priority	= models.IntegerField(choices=PRIORITIES, default=1)
+	visible		= models.BooleanField(default=True)
 
 #	submissions = [foreign key `assignment` in Submission]
 #	assets		= [foreign key `assignment` in Asset]

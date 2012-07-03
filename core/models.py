@@ -105,6 +105,10 @@ class Course(models.Model):
 					tag.string = "&#8226;"
 					items_element.append(tag)
 
+			today = date.today()
+			if (date.month == today.month and today.day < len(day_cells)):
+				day_cells[today.day - 1]["id"] = "today";
+
 			return str(soup)
 		except (AttributeError, TypeError):
 			raise AssertionError("Input date should be a `date` object.")

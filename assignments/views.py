@@ -12,10 +12,12 @@ import core.models
 @selected_course_required
 def assignments(request):
 	course = core.models.Course.get_selected_course(request)
+	assignments = course.assignments.filter(due__gt=datetime.today())
 	cal_html = course.assignment_calendar_html()
 	today = date.today()
 	return render_to_response("assignments.html",
-							{ "calendar_html" 	: cal_html,
+							{ "assignments"		: assignments,
+							  "calendar_html" 	: cal_html,
 							  "current_month" 	: today.month,
 							  "current_year"	: today.year },
 							context_instance=RequestContext(request))
