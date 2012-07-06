@@ -69,6 +69,7 @@ class Submission(models.Model):
 	assignment		= models.ForeignKey(Assignment, related_name="submissions")
 	submitter		= models.ForeignKey(core.models.UserProfile, related_name="submissions")
 	submitted		= models.DateTimeField(auto_now_add=True)
+	comments		= models.TextField(blank=True)
 #	files			= [foreign key `submission` in SubmissionFile]
 	points_earned	= models.FloatField()
 
@@ -78,7 +79,6 @@ class SubmissionFile(models.Model):
 
 	file		= models.FileField(upload_to=UPLOADS_DIRECTORY)
 	created		= models.DateTimeField(auto_now_add=True)
-	comments	= models.TextField(blank=True)
 	submission	= models.ForeignKey(Submission, related_name="files")
 
 	def __unicode__(self):
