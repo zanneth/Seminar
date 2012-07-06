@@ -1,5 +1,6 @@
-from datetime import datetime, timedelta
+from datetime import date, datetime, timedelta
 from django.db import models
+from django.utils import timezone
 from random import random
 from seminar import settings
 import core.models
@@ -51,6 +52,10 @@ class Assignment(models.Model):
 	def priority_string(self):
 		return self.PRIORITIES[self.priority][1].lower()
 
+	@property
+	def is_past_due(self):
+		tz = timezone.get_current_timezone()
+		return bool(datetime.now(tz) > self.due)
 
 class Asset(models.Model):
 	UPLOADS_DIRECTORY = "assignment_assets"

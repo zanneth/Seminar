@@ -102,34 +102,39 @@
 					</div>
 				{% endif %}
 				<div id="submit-assignment-container">
-					<form id="submit-assignment-form" method="POST" enctype="multipart/form-data">
-						{% csrf_token %}
-						<table id="new-submission-table">
-							<tr>
-								<td class="field-label">
-									Files
-								</td>
-								<td class="field-content" id="files-to-submit">
-									<input type="file" name="file1" />
-									<a id="add-file-button">
-										<span class="icon-plus-sign"></span>
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td class="field-label">
-									Comments
-								</td>
-								<td class="field-content" id="submission-files">
-									<textarea name="comments" cols="40" rows="5"></textarea>
-								</td>
-							</tr>
-						</table>
-					</form>
+					{% if not assignment.is_past_due %}
+						<form id="submit-assignment-form" method="POST" enctype="multipart/form-data">
+							{% csrf_token %}
+							<table id="new-submission-table">
+								<tr>
+									<td class="field-label">
+										Files
+									</td>
+									<td class="field-content" id="files-to-submit">
+										<input type="file" name="file1" />
+										<a id="add-file-button">
+											<span class="icon-plus-sign"></span>
+										</a>
+									</td>
+								</tr>
+								<tr>
+									<td class="field-label">
+										Comments
+									</td>
+									<td class="field-content" id="submission-files">
+										<textarea name="comments" cols="40" rows="5"></textarea>
+									</td>
+								</tr>
+							</table>
+						</form>
 
-					<a class="button unselectable" id="add-submission-button">
-						Add a Submission
-					</a>
+						<a class="button unselectable" id="add-submission-button">
+							Add a Submission
+						</a>
+					{% else %}
+						<span class="icon-exclamation-sign">&nbsp;</span>
+						<span>Assignment is past due.</span>
+					{% endif %}
 				</div>
 			</div>
 		{% endif %}

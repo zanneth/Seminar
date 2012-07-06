@@ -28,7 +28,7 @@ def view_assignment(request, assignment_id):
 	try:
 		assignment = models.Assignment.objects.get(pk=assignment_id)
 
-		if (request.method == "POST"):
+		if (request.method == "POST" and not assignment.is_past_due):
 			submission = models.Submission()
 			submission.assignment = assignment
 			submission.submitter = request.user.get_profile()
