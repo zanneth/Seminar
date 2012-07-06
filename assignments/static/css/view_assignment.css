@@ -127,3 +127,9 @@ td.field-label {
 	font-size: 11pt;
 	font-weight: bold;
 }
+
+a#add-file-button {
+	color: #0a0;
+	cursor: pointer;
+	text-decoration: none;
+}

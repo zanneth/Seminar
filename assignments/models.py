@@ -1,5 +1,7 @@
 from datetime import datetime, timedelta
 from django.db import models
+from random import random
+from seminar import settings
 import core.models
 import markdown
 import os.path
@@ -83,3 +85,19 @@ class SubmissionFile(models.Model):
 
 	def __unicode__(self):
 		return os.path.basename(self.file.name)
+
+	@staticmethod
+	def handle_uploaded_file(f):
+		basename = os.path.basename(f.name)
+		dest_dir = os.path.join(settings.MEDIA_ROOT, SubmissionFile.UPLOADS_DIRECTORY)
+		dest_path = os.path.join(dest_dir, basename)
+		if (os.path.isfile(dest_path)):
+			split_name = os.path.splitext(basename)
+			new_name = "{0}_{1}{2}".format(split_name[0], int(random()*100), split_name[1])
+			dest_path = os.path.join(dest_dir, new_name)
+
+		with open(dest_path, "wb+") as destination:
+			for chunk in f.chunks():
+				destination.write(chunk)
+
+		return dest_path

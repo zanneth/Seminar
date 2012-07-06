@@ -104,14 +104,16 @@
 				<div id="submit-assignment-container">
 					<form id="submit-assignment-form" method="POST" enctype="multipart/form-data">
 						{% csrf_token %}
-						<table border="0" id="new-submission-table">
+						<table id="new-submission-table">
 							<tr>
 								<td class="field-label">
 									Files
 								</td>
-								<td class="field-content" id="submission-files">
-									<span class="icon-plus-sign"></span>
-									<input type="file" name="file1"></div>
+								<td class="field-content" id="files-to-submit">
+									<input type="file" name="file1" />
+									<a id="add-file-button">
+										<span class="icon-plus-sign"></span>
+									</a>
 								</td>
 							</tr>
 							<tr>
@@ -124,6 +126,10 @@
 							</tr>
 						</table>
 					</form>
+
+					<a class="button unselectable" id="add-submission-button">
+						Add a Submission
+					</a>
 				</div>
 			</div>
 		{% endif %}

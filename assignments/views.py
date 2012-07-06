@@ -3,7 +3,7 @@ from core.decorators import selected_course_required
 from datetime import datetime, date
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, Http404
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
 from pprint import pprint
 import calendar
@@ -25,23 +25,33 @@ def assignments(request):
 
 @login_required
 def view_assignment(request, assignment_id):
-	if (request.method == "GET"):
-		try:
-			assignment = models.Assignment.objects.get(pk=assignment_id)
+	try:
+		assignment = models.Assignment.objects.get(pk=assignment_id)
 
-			profile = request.user.get_profile()
-			submissions = profile.submissions.filter(assignment=assignment).order_by("-submitted")
-		except models.Assignment.DoesNotExist:
-			raise Http404
+		if (request.method == "POST"):
+			submission = models.Submission()
+			submission.assignment = assignment
+			submission.submitter = request.user.get_profile()
+			submission.comments = request.POST.get("comments")
+			submission.save()
 
-		return render_to_response("view_assignment.html",
-								{ "assignment"	: assignment,
-								  "submissions" : submissions },
-								context_instance=RequestContext(request))
-	elif (request.method == "POST"):
-		pprint(request.FILES)
-	else:
+			for filename in request.FILES.keys():
+				submitted_file = request.FILES[filename]
+				path = models.SubmissionFile.handle_uploaded_file(submitted_file)
+				submission_file = models.SubmissionFile()
+				submission_file.file = path
+				submission_file.submission = submission
+				submission_file.save()
+
+		profile = request.user.get_profile()
+		submissions = profile.submissions.filter(assignment=assignment).order_by("-submitted")
+	except models.Assignment.DoesNotExist:
 		raise Http404
+
+	return render_to_response("view_assignment.html",
+							{ "assignment"	: assignment,
+							  "submissions" : submissions },
+							context_instance=RequestContext(request))
 
 @login_required
 @selected_course_required
