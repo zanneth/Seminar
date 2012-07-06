@@ -27,12 +27,12 @@
 										{% if assignment.priority == 2 %}
 											<span class="icon-exclamation-sign"></span>
 										{% endif %}
-										<a href="#">
+										<a href="{% url view_assignment assignment.pk %}">
 											{{ assignment.title }}
-											{% if assignment.assets.all %}
-												<span class="icon-file"></span>
-											{% endif %}
 										</a>
+										{% if assignment.assets.all %}
+											<span class="icon-file"></span>
+										{% endif %}
 									</div>
 									<div class="assignment-due">
 										Due <strong>{{ assignment.due }}</strong>

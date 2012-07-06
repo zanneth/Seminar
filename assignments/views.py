@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, Http404
 from django.shortcuts import render_to_response
 from django.template import RequestContext
+from pprint import pprint
 import calendar
 import core.models
 
@@ -21,6 +22,26 @@ def assignments(request):
 							  "current_month" 	: today.month,
 							  "current_year"	: today.year },
 							context_instance=RequestContext(request))
+
+@login_required
+def view_assignment(request, assignment_id):
+	if (request.method == "GET"):
+		try:
+			assignment = models.Assignment.objects.get(pk=assignment_id)
+
+			profile = request.user.get_profile()
+			submissions = profile.submissions.filter(assignment=assignment).order_by("-submitted")
+		except models.Assignment.DoesNotExist:
+			raise Http404
+
+		return render_to_response("view_assignment.html",
+								{ "assignment"	: assignment,
+								  "submissions" : submissions },
+								context_instance=RequestContext(request))
+	elif (request.method == "POST"):
+		pprint(request.FILES)
+	else:
+		raise Http404
 
 @login_required
 @selected_course_required

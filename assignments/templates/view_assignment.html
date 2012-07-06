@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+
+{% load basename_tag %}
+
+{% block title %}{{ assignment.title }}{% endblock %}
+
+{% block css %}
+{{ block.super }}
+<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/css/view_assignment.css">
+{% endblock %}
+
+{% block scripts %}
+{{ block.super }}
+<script type="text/javascript" src="{{STATIC_URL}}/js/view_assignment.js"></script>
+{% endblock %}
+
+{% block content %}
+
+<div class="content-container">
+	<a href="{% url assignments %}" id="back-assignments">
+		<span class="icon-circle-arrow-left"></span>
+		Back to Assignments
+	</a>
+
+	{% if not assignment.visible %}
+		<div id="access-denied">
+			<span class="icon-ban-circle"></span>
+			This assignment is currently not visible.
+		</div>
+	{% else %}
+		<h1 id="assignment-title">
+			{{ assignment.title }}
+		</h1>
+
+		<h2 id="assignment-subtitle">
+			Due <strong>{{ assignment.due }}</strong>
+		</h2>
+
+		<div id="assignment-description">
+			{% if assignment.description_html %}
+				{{ assignment.description_html|safe }}
+			{% else %}
+				<p id="no-description">
+					No description has been entered.
+				</p>
+			{% endif %}
+		</div>
+
+		{% if assignment.assets.all %}
+			<div id="assignment-assets">
+				<h3>Assets</h3>
+				{% for asset in assignment.assets.all %}
+					<div class="asset-container">
+						<div class="asset">
+							<div class="asset-icon">
+								<a class="file-link" href="{{ MEDIA_URL }}{{ asset.file }}">
+									<span class="icon-file"></span>
+								</a>
+							</div>
+							<div class="asset-details">
+								<span class="asset-name">
+									<a class="file-link" href="{{ MEDIA_URL }}{{ asset.file }}">
+										{{ asset.name }}
+									</a>
+								</span>
+								<span class="asset-filename">{{ asset.file|basename }}</span>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		{% endif %}
+
+		{% if assignment.allows_submissions %}
+			<div id="assignment-submissions">
+				<h3>Submissions</h3>
+				{% if submissions %}
+					<table id="submissions-table">
+						<tr>
+							<th>Date Submitted</th>
+							<th>Submitter</th>
+							<th>Number of Files</th>
+						</tr>
+						{% for submission in submissions %}
+							<tr>
+								<td>{{ submission.submitted }}</td>
+								<td>{{ submission.submitter }}</td>
+								<td>
+									{{ submission.files.count }}
+									{% if submission.files.count == 1 %}
+										file
+									{% else %}
+										files
+									{% endif %}
+								</td>
+							</tr>
+						{% endfor %}
+					</table>
+				{% else %}
+					<div id="no-submissions">
+						No submissions have been uploaded.
+					</div>
+				{% endif %}
+				<div id="submit-assignment-container">
+					<form id="submit-assignment-form" method="POST" enctype="multipart/form-data">
+						{% csrf_token %}
+						<table border="0" id="new-submission-table">
+							<tr>
+								<td class="field-label">
+									Files
+								</td>
+								<td class="field-content" id="submission-files">
+									<span class="icon-plus-sign"></span>
+									<input type="file" name="file1"></div>
+								</td>
+							</tr>
+							<tr>
+								<td class="field-label">
+									Comments
+								</td>
+								<td class="field-content" id="submission-files">
+									<textarea name="comments" cols="40" rows="5"></textarea>
+								</td>
+							</tr>
+						</table>
+					</form>
+				</div>
+			</div>
+		{% endif %}
+	{% endif %}
+</div>
+
+{% endblock %}

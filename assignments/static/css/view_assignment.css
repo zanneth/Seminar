@@ -1,0 +1,129 @@
+a#back-assignments {
+	color: #333;
+	font-style: italic;
+	line-height: 30px;
+	text-decoration: none;
+}
+
+h2 {
+	font-weight: normal;
+	font-size: 15pt;
+}
+
+div#access-denied {
+	text-align: center;
+	padding: 50px 0;
+}
+
+div#access-denied > span.icon-ban-circle {
+	display: block;
+	font-size: 100px;
+}
+
+#no-description,
+#no-submissions {
+	font-style: italic;
+	color: #333;
+}
+
+
+/** Assignment Description **/
+
+div#assignment-description {
+	padding: 20px 0;
+}
+
+div#assignment-description > p + p {
+	margin-top: 10px;
+}
+
+
+/** Assets **/
+
+div#assignment-assets {
+	margin-top: 20px;
+}
+
+div#assignment-assets > h3 {
+	margin-bottom: 0;
+}
+
+div.asset-container {
+	display: inline-block;
+	width: 280px;
+}
+
+a.file-link {
+	color: inherit;
+	text-decoration: none;
+}
+
+div.asset {
+	display: table;
+}
+
+div.asset-icon {
+	display: table-cell;
+	font-size: 50px;
+	padding: 10px 20px;
+}
+
+div.asset-details {
+	display: table-cell;
+	vertical-align: middle;
+}
+
+div.asset-details > span {
+	display: block;
+}
+
+div.asset-details > span.asset-name {
+	font-weight: bold;
+}
+
+div.asset-details > span.asset-filename {
+	font-size: 9pt;
+	color: #333;
+}
+
+
+/** Submissions **/
+
+table#submissions-table {
+	border-collapse: collapse;
+	border: 1px solid #333;
+	width: 80%;
+	margin: 0 auto;
+}
+
+table#submissions-table td, th {
+	font-size: 11pt;
+	line-height: 30px;
+	padding: 0 10px;
+	border: 1px solid #333;
+}
+
+div#submit-assignment-container {
+	padding: 30px;
+	text-align: center;
+}
+
+form#submit-assignment-form {
+	display: none;
+}
+
+table#new-submission-table {
+	margin: 0 auto;
+	width: 200px;
+}
+
+table#new-submission-table td {
+	padding: 20px 5px;
+	vertical-align: top;
+}
+
+td.field-label {
+	text-align: right;
+	font-size: 11pt;
+	font-weight: bold;
+}
