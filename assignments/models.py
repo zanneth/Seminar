@@ -41,6 +41,7 @@ class Assignment(models.Model):
 
 #	submissions = [foreign key `assignment` in Submission]
 #	assets		= [foreign key `assignment` in Asset]
+#	comments	= [foreign key `assignment` in Comment]
 	
 	def __unicode__(self):
 		return self.title
@@ -106,3 +107,15 @@ class SubmissionFile(models.Model):
 				destination.write(chunk)
 
 		return dest_path
+
+class Comment(models.Model):
+	assignment		= models.ForeignKey(Assignment, related_name="comments")
+	parent			= models.ForeignKey("self", blank=True, null=True, related_name="children")
+	author			= models.ForeignKey(core.models.UserProfile, related_name="comments")
+	body			= models.TextField(blank=True)
+	created			= models.DateTimeField(auto_now_add=True)
+#	children		= [foreign key `parent` in Comment]
+	
+	def __unicode__(self):
+		truncated = self.body[:50] + (self.body[50:] and "...")
+		return "<{0}> {1}".format(self.author.user.username, truncated)

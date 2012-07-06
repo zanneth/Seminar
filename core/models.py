@@ -29,6 +29,7 @@ class UserProfile(models.Model):
 #	courses		= [foreign key `members` in Course]
 	default_course = models.ForeignKey("Course", null=True, blank=True)
 #	submissions = [foreign key `submitter` in assignments.Submission]
+#	comments	= [foreign key `author` in assignments.Comment]
 
 	def __unicode__(self):
 		if (self.user.first_name and self.user.last_name):
@@ -152,3 +153,7 @@ class Membership(models.Model):
 	member		= models.ForeignKey(UserProfile)
 	course		= models.ForeignKey(Course)
 	role		= models.IntegerField(choices=USER_TYPES, null=False, blank=False)
+
+	def __unicode__(self):
+		role_name = self.USER_TYPES[self.role][1]
+		return "{0} ({1}) in {2}".format(self.member, role_name, self.course)

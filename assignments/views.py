@@ -13,9 +13,11 @@ import core.models
 @selected_course_required
 def assignments(request):
 	course = core.models.Course.get_selected_course(request)
+
 	assignments = course.assignments.filter(due__gt=datetime.today()).order_by("due")
 	cal_html = course.assignment_calendar_html()
 	today = date.today()
+
 	return render_to_response("assignments.html",
 							{ "assignments"		: assignments,
 							  "calendar_html" 	: cal_html,
@@ -45,12 +47,14 @@ def view_assignment(request, assignment_id):
 
 		profile = request.user.get_profile()
 		submissions = profile.submissions.filter(assignment=assignment).order_by("-submitted")
+		comments = assignment.comments.order_by("created")
 	except models.Assignment.DoesNotExist:
 		raise Http404
 
 	return render_to_response("view_assignment.html",
 							{ "assignment"	: assignment,
-							  "submissions" : submissions },
+							  "submissions" : submissions,
+							  "comments"	: comments },
 							context_instance=RequestContext(request))
 
 @login_required

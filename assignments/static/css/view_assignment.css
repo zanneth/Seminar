@@ -21,7 +21,8 @@ div#access-denied > span.icon-ban-circle {
 }
 
 #no-description,
-#no-submissions {
+#no-submissions,
+#no-comments {
 	font-style: italic;
 	color: #333;
 }
@@ -132,4 +133,29 @@ a#add-file-button {
 	color: #0a0;
 	cursor: pointer;
 	text-decoration: none;
+}
+
+
+/** Comments **/
+
+div#new-comment-container {
+	padding: 20px;
+}
+
+div.comment {
+	border: 1px solid #333;
+	padding: 10px;
+}
+
+div.comment + div.comment {
+	margin-top: 10px;
+}
+
+h1.comment-author {
+	font-size: 12pt;
+	margin-bottom: 10px;
+}
+
+textarea#comment-body {
+	display: block;
 }
