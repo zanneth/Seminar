@@ -71,7 +71,7 @@ class Submission(models.Model):
 	submitted		= models.DateTimeField(auto_now_add=True)
 	comments		= models.TextField(blank=True)
 #	files			= [foreign key `submission` in SubmissionFile]
-	points_earned	= models.FloatField()
+	points_earned	= models.FloatField(blank=True, null=True)
 
 
 class SubmissionFile(models.Model):
