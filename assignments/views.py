@@ -13,7 +13,7 @@ import core.models
 @selected_course_required
 def assignments(request):
 	course = core.models.Course.get_selected_course(request)
-	assignments = course.assignments.filter(due__gt=datetime.today())
+	assignments = course.assignments.filter(due__gt=datetime.today()).order_by("due")
 	cal_html = course.assignment_calendar_html()
 	today = date.today()
 	return render_to_response("assignments.html",
