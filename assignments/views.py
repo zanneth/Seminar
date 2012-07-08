@@ -26,6 +26,15 @@ def assignments(request):
 							context_instance=RequestContext(request))
 
 @login_required
+def grades(request):
+	groups = models.AssignmentGroup.objects.all()
+	ungrouped = models.Assignment.objects.filter(group=None)
+	return render_to_response("grades.html",
+							{ "assignment_groups"		: groups,
+							  "ungrouped_assignments"	: ungrouped },
+							context_instance=RequestContext(request))
+
+@login_required
 def view_assignment(request, assignment_id):
 	try:
 		assignment = models.Assignment.objects.get(pk=assignment_id)

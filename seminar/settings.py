@@ -137,7 +137,6 @@ INSTALLED_APPS = (
     'assignments',
     'core',
     'discussion',
-    'grades',
     'materials',
     'news',
 
