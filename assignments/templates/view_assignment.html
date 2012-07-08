@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% load basename_tag %}
+{% load humanize %}
 
 {% block title %}{{ assignment.title }}{% endblock %}
 
@@ -80,6 +81,7 @@
 							<th>Date Submitted</th>
 							<th>Submitter</th>
 							<th>Number of Files</th>
+							<th>Comments</th>
 						</tr>
 						{% for submission in submissions %}
 							<tr>
@@ -91,6 +93,15 @@
 										file
 									{% else %}
 										files
+									{% endif %}
+								</td>
+								<td>
+									{% if submission.comments %}
+										{{ submission.comments }}
+									{% else %}
+										<span class="no-submission-comments">
+											(No comments)
+										</span>
 									{% endif %}
 								</td>
 							</tr>
@@ -145,13 +156,47 @@
 				{% if comments %}
 					{% for comment in comments %}
 						{% if not comment.parent %}
+							<!-- If you're changing this layout, don't forget
+							to modify the `createCommentElement` function in
+							view_assignment.js -->
 							<div class="comment">
+								<span class="comment-id" style="display:none;">
+									{{ comment.pk }}
+								</span>
 								<h1 class="comment-author">
 									{{ comment.author.user.username }}
 								</h1>
 								<p class="comment-body">
 									{{ comment.body }}
 								</p>
+								<div class="comment-details-container">
+									<a class="comment-reply-button">
+										<span class="icon-comment-alt"></span>
+										Reply
+									</a>
+									<span class="comment-date">
+										Posted {{ comment.created|naturaltime }}
+									</span>
+								</div>
+
+								{% for child in comment.children.all %}
+									<div class="comment">
+										<span class="comment-id" style="display:none;">
+											{{ child.pk }}
+										</span>
+										<h1 class="comment-author">
+											{{ child.author.user.username }}
+										</h1>
+										<p class="comment-body">
+											{{ child.body }}
+										</p>
+										<div class="comment-details-container">
+											<span class="comment-date">
+												Posted {{ child.created|naturaltime }}
+											</span>
+										</div>
+									</div>
+								{% endfor %}
 							</div>
 						{% endif %}
 					{% endfor %}

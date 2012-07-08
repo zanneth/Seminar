@@ -20,7 +20,7 @@ class CommentHandler(BaseHandler):
 
 			if ("parent_id" in request.POST):
 				parent_id = request.POST.get("parent_id")
-				parent = assignments.models.Comment.get(pk=parent_id)
+				parent = assignments.models.Comment.objects.get(pk=parent_id)
 				comment.parent = parent
 
 			comment.save()

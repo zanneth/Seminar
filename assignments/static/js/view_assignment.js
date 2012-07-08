@@ -1,5 +1,72 @@
 var fileFieldCounter = 1;
 
+function createCommentElement(author, body)
+{
+	var commentEl = $("<div>", {
+		class : "comment"
+	});
+
+	$("<h1>", {
+		class	: "comment-author",
+		text	: author
+	}).appendTo(commentEl);
+
+	$("<p>", {
+		class	: "comment-body",
+		text	: body
+	}).appendTo(commentEl);
+
+	$("<div>", {
+		class	: "comment-details-container"
+	}).appendTo(commentEl).append($("<span>", {
+		class	: "comment-date",
+		text	: "Posted just now"
+	}));
+
+	return commentEl;
+}
+
+function createAddReplyElement()
+{
+	var replyEl = $("<div>", {
+		class	: "comment-reply-container"
+	});
+
+	$("<textarea>", {
+		cols	: 40,
+		rows	: 5,
+		id		: "comment-body"
+	}).appendTo(replyEl);
+
+	$("<input>", {
+		id		: "add-reply-button",
+		type	: "button",
+		value	: "Add Reply"
+	}).appendTo(replyEl).click(addReplyButtonClicked);
+
+	$("<input>", {
+		id		: "cancel-reply-button",
+		type	: "button",
+		value	: "Cancel"
+	}).appendTo(replyEl).click(cancelReplyButtonClicked);
+
+	return replyEl;
+}
+
+function showCommentError(afterElement, errorMessage)
+{
+	var errEl = afterElement.next(".error");
+	if (!errEl.length) {
+		errEl = $("<span>", {
+			class	: "error",
+			text	: errorMessage
+		});
+		errEl.insertAfter(afterElement);
+	} else {
+		errEl.text(errorMessage);
+	}
+}
+
 function submitButtonClicked(event)
 {
 	var submissionForm = $("form#submit-assignment-form");
@@ -35,6 +102,11 @@ function addCommentButtonClicked(event)
 	var username = $("#username").val();
 	var addCommentButton = $(event.target);
 
+	if (body.length == 0) {
+		showCommentError(addCommentButton, "You must enter a comment body.");
+		return false;
+	}
+
 	addCommentButton.attr("disabled", true);
 
 	$.ajax({
@@ -42,19 +114,12 @@ function addCommentButtonClicked(event)
 		url		: "/api/assignments/add_comment",
 		data	: { "body" : body, "assignment_id" : assignmentID }
 	}).done(function (result) {
-		var commentEl = $("<div>");
-		var authorEl = $("<h1>").text(username).addClass("comment-author");
-		var bodyEl = $("<p>").text(body).addClass("comment-body");
-
-		commentEl.append(authorEl);
-		commentEl.append(bodyEl);
-		commentEl.addClass("comment");
+		var commentEl = createCommentElement(username, body);
 		$("div#comments-container").append(commentEl);
-
 		$("#comment-body").val("");
 	}).fail(function (result) {
-		$("<span class='error'>There was an error posting your comment. Please try again later.</span>")
-			.insertAfter("#add-comment-button");
+		showCommentError(addCommentButton, "There was an error posting your comment. Please try again later.");
+		console.log(result);
 	}).always(function (result) {
 		addCommentButton.removeAttr("disabled");
 	});
@@ -62,9 +127,64 @@ function addCommentButtonClicked(event)
 	return false;
 }
 
+function addReplyButtonClicked(event)
+{
+	var commentEl = $(event.target).closest(".comment");
+	var commentID = parseInt($(".comment-id", commentEl).text());
+	var assignmentID = $("#assignment-id").val();
+	var addReplyButton = $(event.target);
+	var username = $("#username").val();
+	var body = $("#comment-body", commentEl).val();
+
+	if (body.length == 0) {
+		showCommentError(addReplyButton, "You must enter a reply body.");
+		return false;
+	}
+
+	addReplyButton.attr("disabled", true);
+
+	$.ajax({
+		type	: "POST",
+		url		: "/api/assignments/add_comment",
+		data	: {
+			"body"			: body,
+			"assignment_id"	: assignmentID,
+			"parent_id"		: commentID
+		}
+	}).done(function (result) {
+		var replyEl = createCommentElement(username, body);
+		commentEl.append(replyEl);
+		$(".comment-reply-container", commentEl).remove();
+	}).fail(function (result) {
+		showCommentError(addReplyButton, "There was an error posting your reply. Please try again later.");
+		console.log(result);
+	}).always(function (result) {
+		addReplyButton.removeAttr("disabled");
+	});
+
+	return false;
+}
+
+function cancelReplyButtonClicked(event)
+{
+	var target = $(event.target);
+	target.parent(".comment-reply-container").remove();
+}
+
+function replyButtonClicked(event)
+{
+	var target = $(event.target);
+	var commentEl = target.closest(".comment");
+	if (commentEl.find(".comment-reply-container").length == 0) {
+		var replyEl = createAddReplyElement();
+		replyEl.insertAfter($("> .comment-details-container", commentEl));
+	}
+}
+
 $(document).ready(function() {
 	// setup listeners
 	$("#add-submission-button").click(addSubmissionButtonClicked);
 	$("#add-file-button").click(addFileButtonClicked);
 	$("#add-comment-button").click(addCommentButtonClicked);
+	$(".comment-reply-button").click(replyButtonClicked);
 });

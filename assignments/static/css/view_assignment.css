@@ -22,7 +22,8 @@ div#access-denied > span.icon-ban-circle {
 
 #no-description,
 #no-submissions,
-#no-comments {
+#no-comments,
+.no-submission-comments {
 	font-style: italic;
 	color: #333;
 }
@@ -99,8 +100,8 @@ table#submissions-table {
 
 table#submissions-table td, th {
 	font-size: 11pt;
-	line-height: 30px;
-	padding: 0 10px;
+	/*line-height: 30px;*/
+	padding: 10px;
 	border: 1px solid #333;
 }
 
@@ -139,12 +140,16 @@ a#add-file-button {
 /** Comments **/
 
 div#new-comment-container {
-	padding: 20px;
+	padding: 20px 0;
 }
 
 div.comment {
 	border: 1px solid #333;
 	padding: 10px;
+}
+
+div.comment > div.comment {
+	margin-top: 10px;
 }
 
 div.comment + div.comment {
@@ -156,6 +161,20 @@ h1.comment-author {
 	margin-bottom: 10px;
 }
 
+p.comment-body {
+	font-size: 10pt;
+}
+
+div.comment-details-container {
+	margin-top: 10px;
+	font-size: 8pt;
+}
+
 textarea#comment-body {
 	display: block;
+}
+
+a.comment-reply-button {
+	margin-right: 10px;
+	cursor: pointer;
 }
