@@ -1,7 +1,72 @@
 {% extends "base.html" %}
 
+{% load grading_tags %}
+
+{% block css %}
+{{ block.super }}
+<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/css/grades.css">
+{% endblock %}
+
 {% block content %}
 
+<div class="content-container">
+	{% if assignment_groups %}
+		{% for group in assignment_groups %}
+			<div class="assignment-group">
+				<h3>{{ group.title }}</h3>
+				<table class="grades-table" id="{{ group.pk }}">
+					<tr>
+						<th>Assignment</th>
+						<th>Points Earned</th>
+					</tr>
+					{% for assignment in group.assignments.all %}
+						<tr>
+							<td class="assignment-title-cell">
+								<a href="{% url view_assignment assignment.pk %}">
+									{{ assignment.title }}
+								</a>
+							</td>
+							<td class="assignment-points-cell">
+								{% latest_submission_grade request assignment %}
+								/
+								{{ assignment.max_points }}
+							</td>
+						</tr>
+					{% endfor %}
+				</table>
+			</div>
+		{% endfor %}
+	{% else %}
+		<div class="no-assignments">
+			There are no weighted assignments yet.
+		</div>
+	{% endif %}
 
+	{% if ungrouped_assignments %}
+		<div id="ungrouped-assignments">
+			<h3>Unweighted Assignments</h3>
+			<table class="grades-table" id="ungrouped">
+				<tr>
+					<th>Assignment</th>
+					<th>Points Earned</th>
+				</tr>
+				{% for assignment in ungrouped_assignments %}
+					<tr>
+						<td class="assignment-title-cell">
+							<a href="{% url view_assignment assignment.pk %}">
+								{{ assignment.title }}
+							</a>
+						</td>
+						<td class="assignment-points-cell">
+							{% latest_submission_grade request assignment %}
+							/
+							{{ assignment.max_points }}
+						</td>
+					</tr>
+				{% endfor %}
+			</table>
+		</div>
+	{% endif %}
+</div>
 
 {% endblock %}

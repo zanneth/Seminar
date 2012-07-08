@@ -1,0 +1,33 @@
+div.assignment-group + div.assignment-group {
+	margin-top: 40px;
+}
+
+div#ungrouped-assignments {
+	margin-top: 40px;
+}
+
+table.grades-table {
+	border-collapse: collapse;
+	font-size: 10pt;
+	margin: 0 auto;
+	width: 80%;
+}
+
+table.grades-table td, th {
+	border: 1px solid #333;
+	padding: 5px;
+}
+
+td.assignment-title-cell > a {
+	color: #000;
+	text-decoration: none;
+}
+
+td.assignment-title-cell > a:hover {
+	text-decoration: underline;
+}
+
+td.assignment-points-cell {
+	font-weight: bold;
+	text-align: center;
+}
