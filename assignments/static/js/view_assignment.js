@@ -117,6 +117,11 @@ function addCommentButtonClicked(event)
 		var commentEl = createCommentElement(username, body);
 		$("div#comments-container").append(commentEl);
 		$("#comment-body").val("");
+
+		var noCommentEl = $("#no-comments");
+		if (noCommentEl.length) {
+			noCommentEl.remove();
+		}
 	}).fail(function (result) {
 		showCommentError(addCommentButton, "There was an error posting your comment. Please try again later.");
 		console.log(result);
