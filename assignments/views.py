@@ -26,8 +26,10 @@ def assignments(request):
 							context_instance=RequestContext(request))
 
 @login_required
+@selected_course_required
 def grades(request):
-	groups = models.AssignmentGroup.objects.all()
+	course = core.models.Course.get_selected_course(request)
+	groups = course.assignment_groups.all()
 	ungrouped = models.Assignment.objects.filter(group=None)
 	return render_to_response("grades.html",
 							{ "assignment_groups"		: groups,
@@ -56,6 +58,7 @@ def view_assignment(request, assignment_id):
 
 		profile = request.user.get_profile()
 		submissions = profile.submissions.filter(assignment=assignment).order_by("-submitted")
+		has_visible_submissions = profile.submissions.filter(assignment=assignment, visible=True).count()
 		comments = assignment.comments.order_by("created")
 	except models.Assignment.DoesNotExist:
 		raise Http404
@@ -63,6 +66,7 @@ def view_assignment(request, assignment_id):
 	return render_to_response("view_assignment.html",
 							{ "assignment"	: assignment,
 							  "submissions" : submissions,
+							  "has_visible_submissions" : has_visible_submissions,
 							  "comments"	: comments },
 							context_instance=RequestContext(request))
 

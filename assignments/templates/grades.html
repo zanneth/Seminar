@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 
+{% load humanize %}
 {% load grading_tags %}
+
+{% block title %}Grades{% endblock %}
 
 {% block css %}
 {{ block.super }}
@@ -14,10 +17,20 @@
 		{% for group in assignment_groups %}
 			<div class="assignment-group">
 				<h3>{{ group.title }}</h3>
+				<div class="assignment-group-total-weight">
+					<span class="weight-description">
+						Total Weight Achieved:
+					</span>
+					<span class="weight-number">
+						{% weight_for_group request group as weight %}
+						{{ weight.0|floatformat:2 }} / {{ weight.1|floatformat:2 }}
+					</span>
+				</div>
 				<table class="grades-table" id="{{ group.pk }}">
 					<tr>
-						<th>Assignment</th>
+						<th>Grade Item</th>
 						<th>Points Earned</th>
+						<th>Weight</th>
 					</tr>
 					{% for assignment in group.assignments.all %}
 						<tr>
@@ -30,6 +43,10 @@
 								{% latest_submission_grade request assignment %}
 								/
 								{{ assignment.max_points }}
+							</td>
+							<td class="assignment-weight-cell">
+								{% weight_for_assignment request assignment as weight %}
+								{{ weight.0|floatformat:2 }} / {{ weight.1|floatformat:2 }}
 							</td>
 						</tr>
 					{% endfor %}

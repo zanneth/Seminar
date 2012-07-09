@@ -10,11 +10,11 @@ import os.path
 class AssignmentGroup(models.Model):
 	title		= models.CharField(max_length=1024)
 	weight		= models.FloatField(blank=True, default=0.0)
+	course		= models.ForeignKey(core.models.Course, related_name="assignment_groups")
 #	assignments = [foreign key `group` in Assignment]
 	
 	def __unicode__(self):
 		return self.title
-
 
 class Assignment(models.Model):
 	PRIORITIES = (
@@ -72,7 +72,6 @@ class Asset(models.Model):
 		else:
 			return os.path.basename(self.file.name)
 
-
 class Submission(models.Model):
 	assignment		= models.ForeignKey(Assignment, related_name="submissions")
 	submitter		= models.ForeignKey(core.models.UserProfile, related_name="submissions")
@@ -80,7 +79,7 @@ class Submission(models.Model):
 	comments		= models.TextField(blank=True)
 #	files			= [foreign key `submission` in SubmissionFile]
 	points_earned	= models.FloatField(blank=True, null=True)
-
+	visible			= models.BooleanField(default=True)
 
 class SubmissionFile(models.Model):
 	UPLOADS_DIRECTORY = "assignment_submissions"

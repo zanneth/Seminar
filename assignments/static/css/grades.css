@@ -12,16 +12,32 @@ div#ungrouped-assignments {
 	margin-top: 40px;
 }
 
+div.assignment-group-total-weight {
+	padding-bottom: 10px;
+	font-size: 10pt;
+	text-align: center;
+}
+
+span.weight-description {
+	font-weight: bold;
+}
+
 table.grades-table {
 	border-collapse: collapse;
 	font-size: 10pt;
 	margin: 0 auto;
+	/*table-layout: fixed;*/
 	width: 80%;
 }
 
 table.grades-table td, th {
 	border: 1px solid #333;
 	padding: 5px;
+	text-align: left;
+}
+
+td.assignment-title-cell {
+	width: 60%;
 }
 
 td.assignment-title-cell > a {
@@ -34,6 +50,11 @@ td.assignment-title-cell > a:hover {
 }
 
 td.assignment-points-cell {
-	font-weight: bold;
 	text-align: center;
+	width: 20%;
+}
+
+td.assignment-weight-cell {
+	font-weight: bold;
+	width: 20%;
 }
