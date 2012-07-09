@@ -1,3 +1,26 @@
 from django.db import models
+import core.models
+import os.path
 
-# Create your models here.
+class MaterialGroup(models.Model):
+	title		= models.CharField(max_length=1024)
+	course		= models.ForeignKey(core.models.Course, related_name="material_groups")
+#	materials	= [foreign key `group` in Material]
+
+	def __unicode__(self):
+		return self.title
+
+class Material(models.Model):
+	UPLOADS_DIRECTORY = "material_assets"
+
+	file	= models.FileField(upload_to=UPLOADS_DIRECTORY)
+	name	= models.CharField(max_length=1024, blank=True, null=True)
+	created	= models.DateTimeField(auto_now_add=True)
+	group	= models.ForeignKey(MaterialGroup, related_name="materials")
+	visible	= models.BooleanField(default=True)
+
+	def __unicode__(self):
+		if (self.name):
+			return self.name
+		else:
+			return os.path.basename(self.file.name)

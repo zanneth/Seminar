@@ -65,7 +65,9 @@ class Course(models.Model):
 	description_html = models.TextField(editable=False, null=True, blank=True)
 
 #	news_items	= [foreign key `course` in news.NewsItem]
+#	assignment_groups = [foreign key `course` in assignments.AssignmentGroup]
 #	assignments	= [foreign key `course` in assignments.Assignment]
+#	material_groups = [foreign key `course` in materials.MaterialGroup]
 
 	def __unicode__(self):
 		if (self.department and self.number):
