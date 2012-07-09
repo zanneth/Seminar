@@ -4,6 +4,7 @@ from django.utils import timezone
 from random import random
 from seminar import settings
 import core.models
+import core.util
 import markdown
 import os.path
 
@@ -81,6 +82,14 @@ class Submission(models.Model):
 	points_earned	= models.FloatField(blank=True, null=True)
 	visible			= models.BooleanField(default=True)
 
+	def __unicode__(self):
+		files_count = self.files.count()
+		if (self.comments):
+			truncated = core.util.truncate(self.comments)
+		else:
+			truncated = "<No Comments>"
+		return "Submission ({0} file(s)): {1}".format(files_count, truncated)
+
 class SubmissionFile(models.Model):
 	UPLOADS_DIRECTORY = "assignment_submissions"
 
@@ -116,5 +125,5 @@ class Comment(models.Model):
 #	children		= [foreign key `parent` in Comment]
 	
 	def __unicode__(self):
-		truncated = self.body[:50] + (self.body[50:] and "...")
+		truncated = core.util.truncate(self.body)
 		return "<{0}> {1}".format(self.author.user.username, truncated)

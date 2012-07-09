@@ -22,3 +22,6 @@ def load_markdown(markdown_filename, directory_name="mdown"):
     mdfile.close()
 
     return html
+
+def truncate(string, num_characters=50, continuation_string="..."):
+    return string[:num_characters] + (string[num_characters:] and continuation_string)
