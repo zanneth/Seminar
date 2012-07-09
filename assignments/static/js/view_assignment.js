@@ -53,24 +53,48 @@ function createAddReplyElement()
 	return replyEl;
 }
 
-function showCommentError(afterElement, errorMessage)
+function showError(afterElement, errorMessage)
 {
-	var errEl = afterElement.next(".error");
+	var errEl = afterElement ? afterElement.next(".error") : null;
 	if (!errEl.length) {
 		errEl = $("<span>", {
 			class	: "error",
 			text	: errorMessage
 		});
-		errEl.insertAfter(afterElement);
+
+		if (afterElement) {
+			errEl.insertAfter(afterElement);
+		}
 	} else {
 		errEl.text(errorMessage);
 	}
+
+	return errEl;
 }
 
 function submitButtonClicked(event)
 {
 	var submissionForm = $("form#submit-assignment-form");
-	submissionForm.submit();
+	var filesEl = $(".file-input", submissionForm);
+
+	// Validate the form
+	var valid = false;
+	for (var i = 0; i < filesEl.length; ++i) {
+		valid |= $(filesEl[i]).val().length > 0;
+	}
+	valid |= $("#submission-comments").val().length > 0;
+
+	if (valid) {
+		submissionForm.submit();
+	} else {
+		if (!$("#submission-error").length) {
+			var errEl = showError(null, "You must add at least one file or enter a comment.");
+			$("<div>", {
+				id	: "submission-error",
+				css	: { "padding-bottom" : "20px" }
+			}).append(errEl).insertAfter(submissionForm);
+		}
+	}
 }
 
 function addSubmissionButtonClicked(event)
@@ -90,6 +114,7 @@ function addSubmissionButtonClicked(event)
 function addFileButtonClicked(event)
 {
 	$("<input>").attr({
+		class	: "file-input",
 		type	: "file",
 		name	: "file" + (++fileFieldCounter)
 	}).insertBefore("a#add-file-button");
@@ -103,7 +128,7 @@ function addCommentButtonClicked(event)
 	var addCommentButton = $(event.target);
 
 	if (body.length == 0) {
-		showCommentError(addCommentButton, "You must enter a comment body.");
+		showError(addCommentButton, "You must enter a comment body.");
 		return false;
 	}
 
@@ -123,7 +148,7 @@ function addCommentButtonClicked(event)
 			noCommentEl.remove();
 		}
 	}).fail(function (result) {
-		showCommentError(addCommentButton, "There was an error posting your comment. Please try again later.");
+		showError(addCommentButton, "There was an error posting your comment. Please try again later.");
 		console.log(result);
 	}).always(function (result) {
 		addCommentButton.removeAttr("disabled");
@@ -142,7 +167,7 @@ function addReplyButtonClicked(event)
 	var body = $("#comment-body", commentEl).val();
 
 	if (body.length == 0) {
-		showCommentError(addReplyButton, "You must enter a reply body.");
+		showError(addReplyButton, "You must enter a reply body.");
 		return false;
 	}
 
@@ -161,7 +186,7 @@ function addReplyButtonClicked(event)
 		commentEl.append(replyEl);
 		$(".comment-reply-container", commentEl).remove();
 	}).fail(function (result) {
-		showCommentError(addReplyButton, "There was an error posting your reply. Please try again later.");
+		showError(addReplyButton, "There was an error posting your reply. Please try again later.");
 		console.log(result);
 	}).always(function (result) {
 		addReplyButton.removeAttr("disabled");

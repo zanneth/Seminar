@@ -75,7 +75,7 @@
 		{% if assignment.allows_submissions %}
 			<div id="assignment-submissions">
 				<h3>Submissions</h3>
-				{% if submissions %}
+				{% if submissions and has_visible_submissions %}
 					<table id="submissions-table">
 						<tr>
 							<th>Date Submitted</th>
@@ -84,27 +84,29 @@
 							<th>Comments</th>
 						</tr>
 						{% for submission in submissions %}
-							<tr>
-								<td>{{ submission.submitted }}</td>
-								<td>{{ submission.submitter }}</td>
-								<td>
-									{{ submission.files.count }}
-									{% if submission.files.count == 1 %}
-										file
-									{% else %}
-										files
-									{% endif %}
-								</td>
-								<td>
-									{% if submission.comments %}
-										{{ submission.comments }}
-									{% else %}
-										<span class="no-submission-comments">
-											(No comments)
-										</span>
-									{% endif %}
-								</td>
-							</tr>
+							{% if submission.visible %}
+								<tr>
+									<td>{{ submission.submitted }}</td>
+									<td>{{ submission.submitter }}</td>
+									<td>
+										{{ submission.files.count }}
+										{% if submission.files.count == 1 %}
+											file
+										{% else %}
+											files
+										{% endif %}
+									</td>
+									<td>
+										{% if submission.comments %}
+											{{ submission.comments }}
+										{% else %}
+											<span class="no-submission-comments">
+												(No comments)
+											</span>
+										{% endif %}
+									</td>
+								</tr>
+							{% endif %}
 						{% endfor %}
 					</table>
 				{% else %}
@@ -122,7 +124,7 @@
 										Files
 									</td>
 									<td class="field-content" id="files-to-submit">
-										<input type="file" name="file1" />
+										<input class="file-input" type="file" name="file1" />
 										<a id="add-file-button">
 											<span class="icon-plus-sign"></span>
 										</a>
@@ -133,12 +135,11 @@
 										Comments
 									</td>
 									<td class="field-content" id="submission-files">
-										<textarea name="comments" cols="40" rows="5"></textarea>
+										<textarea id="submission-comments" name="comments" cols="40" rows="5"></textarea>
 									</td>
 								</tr>
 							</table>
 						</form>
-
 						<a class="button unselectable" id="add-submission-button">
 							Add a Submission
 						</a>
