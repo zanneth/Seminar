@@ -1,3 +1,7 @@
+div.content-container {
+	overflow: hidden;
+}
+
 div#left-container {
 	float: left;
 	width: 60%;
