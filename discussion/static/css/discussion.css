@@ -1,0 +1,73 @@
+div.no-data {
+	margin: 50px auto;
+	text-align: center;
+	width: 400px;
+}
+
+div.discussion-group {
+	padding: 10px;
+	border: 1px solid #333;
+}
+
+div.discussion-group + div.discussion-group {
+	margin-top: 20px;
+}
+
+div.discussion-group > div.no-data {
+	padding: 0;
+	margin: 10px auto;
+}
+
+div.group-header {
+	overflow: hidden;
+}
+
+div.group-info {
+	float: left;
+}
+
+div.group-actions {
+	float: right;
+}
+
+h1.group-title {
+	display: inline;
+	font-size: 12pt;
+}
+
+h2.group-subtitle {
+	color: #333;
+	display: inline;
+	font-size: 10pt;
+	font-weight: normal;
+	margin-left: 0.5em;
+}
+
+table.topics-list {
+	margin-top: 10px;
+	padding: 0 10px;
+	font-size: 10pt;
+	width: 100%;
+	table-layout: fixed;
+}
+
+table.topics-list td {
+	padding: 2px;
+}
+
+td.topic-title {
+	text-align: left;
+}
+
+td.topic-title > a {
+	color: inherit;
+	text-decoration: none;
+}
+
+td.topic-title > a:hover {
+	text-decoration: underline;
+}
+
+td.topic-created, td.topic-creator {
+	text-align: center;
+}

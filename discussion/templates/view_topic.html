@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %}Discussion - {{ topic.title }}{% endblock %}
+
+{% block css %}
+{{ block.super }}
+<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/css/view_topic.css">
+{% endblock %}
+
+{% block scripts %}
+{{ block.super }}
+<script type="text/javascript" src="{{STATIC_URL}}/js/view_topic.js"></script>
+{% endblock %}
+
+{% block content %}
+
+<div class="content-container">
+	<a href="{% url discussion %}" id="back-discussion">
+		<span class="icon-circle-arrow-left"></span>
+		Back to Topics
+	</a>
+
+	<div id="topic-header">
+		<span id="topic-group">
+			{{ topic.group }} //
+		</span>
+		<span id="topic-title">
+			{{ topic.title }}
+		</span>
+		<div id="topic-created">
+			Created {{ topic.created }}
+		</div>
+	</div>
+
+	{% if posts %}
+		{% for post in posts %}
+			<div class="post">
+				<div class="post-header">
+					<span class="post-author">
+						<span class="icon-user"></span>
+						{{ post.author.user.first_name }} {{ post.author.user.last_name }}
+					</span>
+					<span class="post-created">
+						{{ post.created }}
+					</span>
+				</div>
+				<div class="post-body">
+					{{ post.body_html|safe }}
+				</div>
+			</div>
+		{% endfor %}
+	{% else %}
+		<div class="no-data">
+			<div class="icon-ban-circle"></div>
+			No posts have been added yet.
+		</div>
+	{% endif %}
+
+	<div id="new-post">
+		<form id="new-post-form" method="POST" enctype="multipart/form-data">
+			{% csrf_token %}
+
+			<textarea id="post-body" name="body" cols="100" rows="10"></textarea>
+			<input type="hidden" id="topic-id" name="topic_id" value="{{ topic.pk }}" />
+			<br />
+			<input id="add-post-button" type="submit" value="Add Reply" />
+		</form>
+	</div>
+</div>
+
+{% endblock %}

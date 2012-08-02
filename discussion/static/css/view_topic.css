@@ -1,0 +1,69 @@
+a#back-discussion {
+	color: #333;
+	font-style: italic;
+	line-height: 30px;
+	margin-bottom: 20px;
+	text-decoration: none;
+}
+
+a#back-discussion:hover {
+	text-decoration: underline;
+}
+
+div.no-data {
+	text-align: center;
+}
+
+#topic-header {
+	margin-top: 10px;
+}
+
+#topic-group {
+	color: #555;
+	font-size: 12pt;
+	font-weight: bold;
+}
+
+#topic-title {
+	font-weight: bold;
+	font-size: 18pt;
+}
+
+#topic-created {
+	font-size: 10pt;
+	color: #555;
+}
+
+
+/** Posts **/
+
+div.post {
+	border: 1px solid #333;
+	padding: 10px;
+	margin-top: 20px;
+}
+
+div.post-header {
+	font-size: 11pt;
+	overflow: hidden;
+}
+
+span.post-author {
+	float: left;
+	font-weight: bold;
+}
+
+span.post-created {
+	float: right;
+	color: #555;
+}
+
+div.post-body {
+	margin-top: 10px;
+	font-size: 12px;
+	line-height: 17px;
+}
+
+div#new-post {
+	margin-top: 40px;
+}

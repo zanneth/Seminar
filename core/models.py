@@ -30,6 +30,7 @@ class UserProfile(models.Model):
 	default_course = models.ForeignKey("Course", null=True, blank=True)
 #	submissions = [foreign key `submitter` in assignments.Submission]
 #	comments	= [foreign key `author` in assignments.Comment]
+#	discussion_topics = [foreign key `creator` in discussion.DiscussionPost]
 
 	def __unicode__(self):
 		if (self.user.first_name and self.user.last_name):
@@ -68,6 +69,7 @@ class Course(models.Model):
 #	assignment_groups = [foreign key `course` in assignments.AssignmentGroup]
 #	assignments	= [foreign key `course` in assignments.Assignment]
 #	material_groups = [foreign key `course` in materials.MaterialGroup]
+#	discussion_topics = [foreign key `course` in discussion.DiscussionTopic]
 
 	def __unicode__(self):
 		if (self.department and self.number):

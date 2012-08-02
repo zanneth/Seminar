@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}Discussion{% endblock %}
+
+{% block css %}
+{{ block.super }}
+<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/css/discussion.css">
+{% endblock %}
+
+{% block content %}
+
+<div class="content-container">
+	{% if discussion_groups %}
+		{% for group in discussion_groups %}
+			<div class="discussion-group">
+				<div class="group-header">
+					<div class="group-info">
+						<h1 class="group-title">{{ group.title }}</h1>
+						<h2 class="group-subtitle">3 topics</h2>
+					</div>
+					<div class="group-actions">
+						[New]
+					</div>
+				</div>
+				{% if group.topics.all %}
+					<table class="topics-list">
+						{% for topic in group.ordered_topics %}
+							<tr>
+								<td class="topic-title">
+									<a href="{% url view_topic topic.pk %}">{{ topic }}</a>
+								</td>
+								<td class="topic-created">
+									Added {{ topic.created }}
+								</td>
+								<td class="topic-creator">
+									<span class="icon-user"></span>
+									{{ topic.creator.user.username }}
+								</td>
+							</tr>
+						{% endfor %}
+					</table>
+				{% else %}
+					<div class="no-data">
+						No topics have been created yet.
+					</div>
+				{% endif %}
+			</div>
+		{% endfor %}
+	{% else %}
+		<div class="no-data">
+			<div class="icon-ban-circle"></div>
+			No discussion groups have been created yet.
+		</span>
+	{% endif %}
+</div>
+
+{% endblock %}
