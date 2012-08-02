@@ -16,15 +16,17 @@
 				<h3>{{ group.title }}</h3>
 				<ol class="materials-list">
 					{% for material in group.materials.all %}
-						<li>
-							<span class="icon-file"></span>
-							<a class="material-name" href="{{ MEDIA_URL }}{{ material.file }}">
-								{{ material }}
-							</a>
-							<span class="material-filename">
-								{{ material.basename }}
-							</span>
-						</li>
+						{% if material.visible %}
+							<li>
+								<span class="icon-file"></span>
+								<a class="material-name" href="{{ MEDIA_URL }}{{ material.file }}">
+									{{ material }}
+								</a>
+								<span class="material-filename">
+									{{ material.basename }}
+								</span>
+							</li>
+						{% endif %}
 					{% endfor %}
 				</ol>
 			</div>
