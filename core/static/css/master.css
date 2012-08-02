@@ -110,6 +110,10 @@ h3 {
 	padding: 20px 0;
 }
 
+.no-data > .icon-ban-circle {
+	font-size: 100px;
+}
+
 
 /* Main */
 

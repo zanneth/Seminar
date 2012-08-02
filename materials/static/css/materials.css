@@ -1,12 +1,7 @@
-div.no-materials {
-	color: #333;
+div.no-data {
 	margin: 50px auto;
 	text-align: center;
 	width: 400px;
-}
-
-div.no-materials > div.icon-ban-circle {
-	font-size: 100px;
 }
 
 div.material-group + div.material-group {
