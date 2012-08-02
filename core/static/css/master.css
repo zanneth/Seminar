@@ -104,6 +104,12 @@ h3 {
 	background-color: #004099 \9;
 }
 
+.no-data {
+	color: #333;
+	font-style: italic;
+	padding: 20px 0;
+}
+
 
 /* Main */
 

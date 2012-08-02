@@ -9,14 +9,20 @@
 {% block content %}
 <div class="content-container" id="news-container">
 	<h1>News</h1>
-	{% for post in posts %}
-		<div class="post">
-			<h1>{{ post.subject }}</h1>
-			<h2>{{ post.created|date:"F d, Y" }}</h2>
-			<p class="body">
-				{{ post.body_html|safe }}
-			</p>
+	{% if posts %}
+		{% for post in posts %}
+			<div class="post">
+				<h1>{{ post.subject }}</h1>
+				<h2>{{ post.created|date:"F d, Y" }}</h2>
+				<p class="body">
+					{{ post.body_html|safe }}
+				</p>
+			</div>
+		{% endfor %}
+	{% else %}
+		<div class="no-data">
+			No posts have been created yet.
 		</div>
-	{% endfor %}
+	{% endif %}
 </div>
 {% endblock %}
