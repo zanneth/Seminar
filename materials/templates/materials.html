@@ -2,10 +2,36 @@
 
 {% block title %}Materials{% endblock %}
 
+{% block css %}
+{{ block.super }}
+<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/css/materials.css">
+{% endblock %}
+
 {% block content %}
 
 <div class="content-container">
-	Materials
+	{% if material_groups %}
+		{% for group in material_groups %}
+			<div class="material-group">
+				<h3>{{ group.title }}</h3>
+				<ol class="materials-list">
+					{% for material in group.materials.all %}
+						<li>
+							<span class="icon-file"></span>
+							<a href="{{ MEDIA_URL }}{{ material.file }}">
+								{{ material }}
+							</a>
+						</li>
+					{% endfor %}
+				</ol>
+			</div>
+		{% endfor %}
+	{% else %}
+		<div class="no-materials">
+			<div class="icon-ban-circle"></div>
+			No materials exist for this course.
+		</div>
+	{% endif %}
 </div>
 
 {% endblock %}

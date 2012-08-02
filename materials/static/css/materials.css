@@ -1,0 +1,29 @@
+div.no-materials {
+	color: #333;
+	margin: 50px auto;
+	text-align: center;
+	width: 400px;
+}
+
+div.no-materials > div.icon-ban-circle {
+	font-size: 100px;
+}
+
+div.material-group + div.material-group {
+	margin-top: 20px;
+}
+
+ol.materials-list {
+	list-style-type: none;
+}
+
+ol.materials-list > li {
+	font-size: 11pt;
+	padding: 10px;
+}
+
+ol.materials-list > li > a {
+	color: inherit;
+	font-weight: bold;
+	text-decoration: none;
+}
