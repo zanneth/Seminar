@@ -22,8 +22,18 @@ ol.materials-list > li {
 	padding: 10px;
 }
 
-ol.materials-list > li > a {
+a.material-name {
 	color: inherit;
 	font-weight: bold;
 	text-decoration: none;
+}
+
+a.material-name:hover {
+	text-decoration: underline;
+}
+
+span.material-filename {
+	margin-left: 0.5em;
+	font-size: 8pt;
+	color: #333;
 }

@@ -18,9 +18,12 @@
 					{% for material in group.materials.all %}
 						<li>
 							<span class="icon-file"></span>
-							<a href="{{ MEDIA_URL }}{{ material.file }}">
+							<a class="material-name" href="{{ MEDIA_URL }}{{ material.file }}">
 								{{ material }}
 							</a>
+							<span class="material-filename">
+								{{ material.basename }}
+							</span>
 						</li>
 					{% endfor %}
 				</ol>

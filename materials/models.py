@@ -19,6 +19,10 @@ class Material(models.Model):
 	group	= models.ForeignKey(MaterialGroup, related_name="materials")
 	visible	= models.BooleanField(default=True)
 
+	@property
+	def basename(self):
+		return os.path.basename(self.file.name)
+
 	def __unicode__(self):
 		if (self.name):
 			return self.name
