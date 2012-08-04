@@ -43,6 +43,19 @@
 					<span class="post-created">
 						{{ post.created }}
 					</span>
+
+					<br style="clear:both" />
+
+					{% if post.author.user == request.user %}
+						<div class="post-actions">
+							<div class="post-action" id="delete-post">
+								<a class="blended" href="{% url delete_post post.pk %}">
+									<span class="icon-remove"></span>
+									Delete Post
+								</a>
+							</div>
+						</div>
+					{% endif %}
 				</div>
 				<div class="post-body">
 					{{ post.body_html|safe }}

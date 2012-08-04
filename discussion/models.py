@@ -1,6 +1,7 @@
 from django.db import models
 import core.models
 import markdown
+import urllib
 
 class DiscussionGroup(models.Model):
 	title		= models.CharField(max_length=1024)
@@ -10,6 +11,20 @@ class DiscussionGroup(models.Model):
 	@property
 	def ordered_topics(self):
 		return self.topics.order_by("-created")
+
+	@property
+	def url_form(self):
+		formatted = self.title.strip().lower().replace(" ", "_")
+		return urllib.quote(formatted)
+
+	@staticmethod
+	def reverse_url_form(url_form):
+		groups = DiscussionGroup.objects.all()
+		for group in groups:
+			if (group.url_form == url_form):
+				return group
+
+		return None
 
 	def __unicode__(self):
 		return self.title

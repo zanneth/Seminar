@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}New Topic{% endblock %}
+
+{% block css %}
+{{ block.super }}
+<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}/css/discussion.css">
+{% endblock %}
+
+{% block scripts %}
+{{ block.super }}
+<script type="text/javascript" src="{{STATIC_URL}}js/new_topic.js"></script>
+{% endblock %}
+
+{% block content %}
+
+<div class="content-container">
+	<div id="back-container">
+		<a href="{% url discussion %}">
+			<span class="icon-circle-arrow-left"></span>
+			Back to Topics
+		</a>
+	</div>
+
+	<h1>New Topic</h1>
+	<div id="group-name-container">
+		{{ discussion_group.title }}
+	</div>
+
+	<form id="new-topic-form" method="POST" enctype="multipart/form-data">
+		{% csrf_token %}
+		<input type="hidden" id="group-id" name="group_id" value="{{ discussion_group.pk }}" />
+
+		<table id="form-table">
+			<tr>
+				<td class="form-label">Title</td>
+				<td class="form-element">
+					<input type="text" id="topic-title" name="topic_title" maxlength="1024" />
+				</td>
+			</tr>
+			<tr>
+				<td class="form-label">Body</td>
+				<td class="form-element">
+					<textarea id="topic-body" name="topic_body" cols="100" rows="10"></textarea>
+				</td>
+			</tr>
+			<tr>
+				<td class="form-label"></td>
+				<td id="submit-container" class="form-element">
+					<input type="submit" value="Submit" />
+				</td>
+			</tr>
+		</table>
+	</form>
+</div>
+
+{% endblock %}

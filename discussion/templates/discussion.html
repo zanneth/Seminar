@@ -16,10 +16,22 @@
 				<div class="group-header">
 					<div class="group-info">
 						<h1 class="group-title">{{ group.title }}</h1>
-						<h2 class="group-subtitle">3 topics</h2>
+						<h2 class="group-subtitle">
+							{{ group.topics.count }}
+							{% if group.topics.count == 1 %}
+								topic
+							{% else %}
+								topics
+							{% endif %}
+						</h2>
 					</div>
 					<div class="group-actions">
-						[New]
+						<div class="group-action">
+							<a href="{% url new_topic group.url_form %}">
+								<span class="icon-plus-sign"></span>
+								New Topic
+							</a>
+						</div>
 					</div>
 				</div>
 				{% if group.topics.all %}
@@ -27,7 +39,7 @@
 						{% for topic in group.ordered_topics %}
 							<tr>
 								<td class="topic-title">
-									<a href="{% url view_topic topic.pk %}">{{ topic }}</a>
+									<a href="{% url view_topic group.url_form topic.pk %}">{{ topic }}</a>
 								</td>
 								<td class="topic-created">
 									Added {{ topic.created }}

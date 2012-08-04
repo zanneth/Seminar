@@ -58,10 +58,18 @@ span.post-created {
 	color: #555;
 }
 
+div.post-action {
+	font-size: 8pt;
+}
+
 div.post-body {
 	margin-top: 10px;
 	font-size: 12px;
 	line-height: 17px;
+}
+
+div.post-body > p + p {
+	margin-top: 1em;
 }
 
 div#new-post {
