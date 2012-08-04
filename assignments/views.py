@@ -30,7 +30,7 @@ def assignments(request):
 def grades(request):
 	course = core.models.Course.get_selected_course(request)
 	groups = course.assignment_groups.all()
-	ungrouped = models.Assignment.objects.filter(group=None)
+	ungrouped = course.assignments.filter(group=None)
 	return render_to_response("grades.html",
 							{ "assignment_groups"		: groups,
 							  "ungrouped_assignments"	: ungrouped },
