@@ -13,7 +13,8 @@ class MaterialGroup(models.Model):
 class Material(models.Model):
 	UPLOADS_DIRECTORY = "material_assets"
 
-	file	= models.FileField(upload_to=UPLOADS_DIRECTORY)
+	file	= models.FileField(upload_to=UPLOADS_DIRECTORY, null=True, blank=True)
+	url		= models.URLField(null=True, blank=True)
 	name	= models.CharField(max_length=1024, blank=True, null=True)
 	created	= models.DateTimeField(auto_now_add=True)
 	group	= models.ForeignKey(MaterialGroup, related_name="materials")
@@ -26,5 +27,9 @@ class Material(models.Model):
 	def __unicode__(self):
 		if (self.name):
 			return self.name
-		else:
+		elif (self.file):
 			return os.path.basename(self.file.name)
+		elif (self.url):
+			return self.url
+		else:
+			return "Unknown Material"

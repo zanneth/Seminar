@@ -18,12 +18,34 @@
 					{% for material in group.materials.all %}
 						{% if material.visible %}
 							<li>
-								<span class="icon-file"></span>
-								<a class="material-name" href="{{ MEDIA_URL }}{{ material.file }}">
+								{% if material.url %}
+									<span class="icon-link"></span>
+								{% else %}
+									{% if material.file %}
+										<span class="icon-file"></span>
+									{% else %}
+										<span class="icon-question-sign"></span>
+									{% endif %}
+								{% endif %}
+
+								{% if material.file %}
+									<a class="material-name" href="{{ MEDIA_URL }}{{ material.file }}">
+								{% else %}
+									{% if material.url %}
+										<a class="material-name" href="{{ material.url }}">
+									{% else %}
+										<a class="material-name" href="#">
+									{% endif %}
+								{% endif %}
 									{{ material }}
 								</a>
-								<span class="material-filename">
-									{{ material.basename }}
+								
+								<span class="material-subtitle">
+									{% if material.file %}
+										{{ material.basename }}
+									{% else %}
+										{{ material.url|truncatechars:100 }}
+									{% endif %}
 								</span>
 							</li>
 						{% endif %}
