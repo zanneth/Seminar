@@ -37,6 +37,10 @@ div#main-container > h1 {
 	text-shadow: 0 0 10px #000;
 }
 
+div#no-courses-message {
+	color: white;
+}
+
 div#courses-container {
 	background-color: #fff;
 

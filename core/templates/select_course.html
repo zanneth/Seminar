@@ -9,16 +9,23 @@
 
 <div id="super-container">
 	<div id="main-container">
-		<h1>Select a Course</h1>
-		<div id="courses-container">
-			<ul id="courses">
-				{% for course in courses %}
-					<a href="{% url core.views.select_course course.pk %}">
-						<li>{{ course }}</li>
-					</a>
-				{% endfor %}
-			</ul>
-		</div>
+		{% if courses and 0 %}
+			<h1>Select a Course</h1>
+			<div id="courses-container">
+				<ul id="courses">
+					{% for course in courses %}
+						<a href="{% url core.views.select_course course.pk %}">
+							<li>{{ course }}</li>
+						</a>
+					{% endfor %}
+				</ul>
+			</div>
+		{% else %}
+			<h1>You have not created any courses yet.</h1>
+			<div id="no-courses-message">
+				Use the admin panel to create a new course.
+			</div>
+		{% endif %}
 	</div>
 </div>
 
