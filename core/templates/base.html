@@ -34,8 +34,6 @@
 				<span id="welcome">Welcome, {{ request.user.first_name }}</span><br />
 			{% endif %}
 
-			<a href="#">About &#124;</a>
-
 			{% if other_courses_available %}
 				<a href="{% url select_course %}">Switch Course &#124;</a>
 			{% endif %}
@@ -43,7 +41,6 @@
 			{% if not request.user.is_authenticated %}
 				<a href="{% url login %}" style="font-weight: bold">Login</a>
 			{% else %}
-				<a href="#">Settings &#124;</a>
 				<a href="{% url logout %}" style="font-weight: bold">Logout</a>
 			{% endif %}
 		</div>
