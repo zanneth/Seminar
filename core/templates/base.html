@@ -4,6 +4,7 @@
 	<title>{% block title %}{% endblock %}</title>
 
 	{% load active_tag %}
+	{% load superstudent_tag %}
 
 	<!-- Stylesheets -->
 	{% block css %}
@@ -76,6 +77,14 @@
 				<span class="tab {% active request grades_url %}">
 					<a href="{{ grades_url }}">Grades</a>
 				</span>
+
+				{% superstudent_status request as superstudent %}
+				{% if superstudent %}
+					{% url teacher as teacher_url %}
+					<span class="tab {% active request teacher_url %}">
+						<a href="{{ teacher_url }}">Teacher</a>
+					</span>
+				{% endif %}
 			{% endif %}
 		</div>
 	</div>

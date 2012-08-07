@@ -114,7 +114,7 @@ class SubmissionFile(models.Model):
 			for chunk in f.chunks():
 				destination.write(chunk)
 
-		return dest_path
+		return os.path.join(SubmissionFile.UPLOADS_DIRECTORY, basename)
 
 class Comment(models.Model):
 	assignment		= models.ForeignKey(Assignment, related_name="comments")

@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}Submissions for {{ assignment }}{% endblock %}
+
+{% block css %}
+{{ block.super }}
+<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/teacher.css">
+{% endblock %}
+
+{% block content %}
+
+<div class="content-container">
+	<div class="back-container">
+		<a class="blended" href="{% url teacher %}">
+			<span class="icon-circle-arrow-left"></span>
+			Back to Teacher Panel
+		</a>
+	</div>
+
+	<h1>Submissions for {{ assignment }}</h1>
+	{% if members_submissions %}
+		<table id="members-submissions-table">
+			{% for member_submissions in members_submissions %}
+				<tr>
+					<td class="member-name">{{ member_submissions.0 }}</td>
+					<td class="submission-data">
+						{{ member_submissions.1.count }}
+						{% if member_submissions.1.count == 1 %}
+							submission
+						{% else %}
+							submissions
+						{% endif %}
+					</td>
+					<td class="submission-actions">
+						<span class="submission-action">
+							{% if member_submissions.1.count > 0 %}
+								<a href="{% url view_submission member_submissions.1.0.pk %}">
+									View Latest Submission
+								</a>
+							{% else %}
+								<span class="disabled">View Latest Submission</span>
+							{% endif %}
+						</span>
+					</td>
+				</tr>
+			{% endfor %}
+		</table>
+	{% else %}
+		<div class="no-data">
+			No students are enrolled in this course.
+		</div>
+	{% endif %}
+</div>
+
+{% endblock %}

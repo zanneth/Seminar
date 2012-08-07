@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}Teacher Panel{% endblock %}
+
+{% load order_by_filter %}
+
+{% block css %}
+{{ block.super }}
+<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/teacher.css">
+{% endblock %}
+
+{% block content %}
+
+<div class="content-container">
+	{% for assignment_group in assignment_groups %}
+		<div class="assignment-group">
+			<h3>{{ assignment_group.title }}</h3>
+			<table class="assignment-action-table">
+				{% for assignment in assignment_group.assignments.all|order_by:"due" %}
+					<tr>
+						<td class="assignment">{{ assignment }}</td>
+						<td class="assignment-due">Due {{ assignment.due }}</td>
+						<td class="actions">
+							<span class="assignment-action">
+								<a href="{% url view_submissions assignment.pk %}">
+									View Submissions
+								</a>
+							</span>
+						</td>
+					</tr>
+				{% endfor %}
+			</table>
+		</div>
+	{% endfor %}
+</div>
+
+{% endblock %}

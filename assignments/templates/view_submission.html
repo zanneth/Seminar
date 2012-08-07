@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block title %}View Submission{% endblock %}
+
+{% load basename_tag %}
+
+{% block css %}
+{{ block.super }}
+<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/teacher.css">
+{% endblock %}
+
+{% block content %}
+
+<div class="content-container">
+	<div class="back-container">
+		<a class="blended" href="{% url view_submissions submission.assignment.pk %}">
+			<span class="icon-circle-arrow-left"></span>
+			Back to Submissions
+		</a>
+	</div>
+
+	<h1>View Submission</h1>
+	<table id="submission-information">
+		<tr>
+			<td class="info-label">Assignment</td>
+			<td class="info-data">{{ submission.assignment }}</td>
+		</tr>
+		<tr>
+			<td class="info-label">Submitter</td>
+			<td class="info-data">{{ submission.submitter }}</td>
+		</tr>
+		<tr>
+			<td class="info-label">Submitted</td>
+			<td class="info-data">{{ submission.submitted }}</td>
+		</tr>
+		<tr>
+			<td class="info-label">Comments</td>
+			<td class="info-data">
+				{% if submission.comments %}
+					{{ submission.comments }}
+				{% else %}
+					<span class="no-data">
+						No comments.
+					</span>
+				{% endif %}
+			</td>
+		</tr>
+		<tr>
+			<td class="info-label">Files</td>
+			<td class="info-data">
+				{% if submission.files.all %}
+					{% for file in submission.files.all %}
+						<div class="submission-file">
+							<span class="icon-file"></span>
+							<a href="{{MEDIA_URL}}{{file.file}}">
+								{{ file.file|basename }}
+							</a>
+						</div>
+					{% endfor %}
+				{% else %}
+					<div class="no-data">No files.</div>
+				{% endif %}
+			</td>
+		</tr>
+		<tr>
+			<td class="info-label">Points Earned</td>
+			<td class="info-data">
+				<form id="grading-form" method="POST" enctype="multipart/form-data">
+					{% csrf_token %}
+					<input type="hidden" name="submission_id" value="{{ submission.pk }}" />
+					<input type="text" id="points-earned" name="points_earned" value="{% if submission.points_earned %}{{ submission.points_earned }}{% else %}0.0{% endif %}" />
+					<span> / {{ submission.assignment.max_points }}</span>
+					<input type="submit" value="Update Grade" />
+				</form>
+			</td>
+		</tr>
+	</table>
+</div>
+
+{% endblock %}

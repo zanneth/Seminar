@@ -104,6 +104,12 @@ h3 {
 	background-color: #004099 \9;
 }
 
+.back-container {
+	color: #333;
+	font-style: italic;
+	margin-bottom: 10px;
+}
+
 .no-data {
 	color: #333;
 	font-style: italic;
@@ -112,6 +118,12 @@ h3 {
 
 .no-data > .icon-ban-circle {
 	font-size: 100px;
+}
+
+.disabled {
+	color: #aaa;
+	font-style: normal;
+	font-weight: normal;
 }
 
 a.blended {

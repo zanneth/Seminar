@@ -1,0 +1,77 @@
+table.assignment-action-table {
+	border: 1px solid #333;
+	border-collapse: collapse;
+	table-layout: fixed;
+	margin: 0 auto;
+	width: 95%;
+}
+
+table.assignment-action-table td {
+	padding: 5px;
+	border: 1px solid #333;
+	font-size: 10pt;
+}
+
+td.assignment {
+	font-weight: bold;
+}
+
+td.actions {
+	text-align: right;
+}
+
+div.assignment-group + div.assignment-group {
+	margin-top: 20px;
+}
+
+
+/** View Submissions **/
+
+table#members-submissions-table {
+	border: 1px solid #333;
+	border-collapse: collapse;
+	font-size: 10pt;
+	table-layout: fixed;
+	margin: 20px auto;
+	width: 95%;
+}
+
+table#members-submissions-table td {
+	border: 1px solid #333;
+	padding: 5px;
+}
+
+td.member-name {
+	font-weight: bold;
+}
+
+
+/** View Submission **/
+
+table#submission-information {
+	margin: 20px auto;
+	width: 95%;
+}
+
+table#submission-information td {
+	padding: 5px;
+}
+
+td.info-label {
+	font-size: 10pt;
+	font-weight: bold;
+	text-align: right;
+}
+
+div.submission-file + div.submission-file {
+	margin-top: 5px;
+}
+
+div.submission-file > a {
+	color: inherit;
+	text-decoration: none;
+}
+
+div.submission-file > a:hover {
+	text-decoration: underline;
+}

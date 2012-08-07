@@ -38,6 +38,14 @@ class UserProfile(models.Model):
 		else:
 			return self.user.username
 
+	def is_superstudent(self, course):
+		"""
+		Returns true if the user is considered above a student in ranking. (e.g.,
+		professor, teaching assistant, etc.)
+		"""
+		membership = Membership.objects.get(member=self, course=course)
+		return (membership.role >= 3) # role is at least teaching assistant
+
 def create_user_profile(sender, instance, created, **kwargs):
 	"""
 	Signal for when a user object is created. We want to make sure to create
