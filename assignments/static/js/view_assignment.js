@@ -56,7 +56,7 @@ function createAddReplyElement()
 function showError(afterElement, errorMessage)
 {
 	var errEl = afterElement ? afterElement.next(".error") : null;
-	if (!errEl.length) {
+	if (!errEl) {
 		errEl = $("<span>", {
 			class	: "error",
 			text	: errorMessage
