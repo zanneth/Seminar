@@ -33,6 +33,11 @@
 		<div id="user-controls">
 			{% if request.user.is_authenticated %}
 				<span id="welcome">Welcome, {{ request.user.first_name }}</span><br />
+			{% else %}
+				<a href="{% url create_account %}" id="create-account">
+					<span class="icon-plus-sign"></span>
+					Create Account
+				</a><br />
 			{% endif %}
 
 			{% if other_courses_available %}

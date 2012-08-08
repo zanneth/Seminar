@@ -1,3 +1,4 @@
+from django.contrib import auth
 from piston.handler import BaseHandler
 from piston.utils import rc
 import assignments.models
@@ -27,3 +28,17 @@ class CommentHandler(BaseHandler):
 			return rc.CREATED
 		else:
 			return rc.FORBIDDEN
+
+class UserHandler(BaseHandler):
+	allowed_methods = ("GET",)
+	model = auth.models.User
+
+	def read(self, request):
+		username = request.GET.get("username")
+
+		try:
+			user = auth.models.User.objects.get(username=username)
+		except auth.models.User.DoesNotExist:
+			user = None
+
+		return (user != None)

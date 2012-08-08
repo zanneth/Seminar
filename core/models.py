@@ -43,7 +43,11 @@ class UserProfile(models.Model):
 		Returns true if the user is considered above a student in ranking. (e.g.,
 		professor, teaching assistant, etc.)
 		"""
-		membership = Membership.objects.get(member=self, course=course)
+		try:
+			membership = Membership.objects.get(member=self, course=course)
+		except Membership.DoesNotExist:
+			return False
+		
 		return (membership.role >= 3) # role is at least teaching assistant
 
 def create_user_profile(sender, instance, created, **kwargs):

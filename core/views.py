@@ -57,3 +57,40 @@ def home(request):
 	return render_to_response("home.html",
 							{ "recent_news" : recent_news },
 							context_instance=RequestContext(request))
+
+@selected_course_required
+def create_account(request):
+	if (request.method == "POST"):
+		username = request.POST.get("username")
+		first = request.POST.get("first_name")
+		last = request.POST.get("last_name")
+		email = request.POST.get("email")
+		password = request.POST.get("password1")
+
+		# create the user
+		user = auth.models.User()
+		user.username = username
+		user.first_name = first
+		user.last_name = last
+		user.email = email
+		user.set_password(password)
+		user.save()
+
+		# set default user's default course
+		course = models.Course.get_selected_course(request)
+		profile = user.get_profile()
+		profile.default_course = course
+		profile.save()
+
+		# add user to course
+		membership = models.Membership(member=profile, course=course)
+		membership.role = 1
+		membership.save()
+
+		# login the user
+		user = auth.authenticate(username=username, password=password)
+		auth.login(request, user)
+		return redirect("home")
+
+	return render_to_response("register.html",
+							context_instance=RequestContext(request))

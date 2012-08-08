@@ -5,6 +5,7 @@ urlpatterns = patterns('',
 	url(r'^$', views.home, name="home"),
 	url(r'^login', views.login, name="login"),
 	url(r'^logout', views.logout, name="logout"),
+	url(r'^register', views.create_account, name="create_account"),
 	url(r'^select$', views.select_course, name="select_course"),
 	url(r'^select/(?P<course_id>\d+)$', views.select_course),
 	url(r'^clear$', views.clear_course, name="clear_course")
